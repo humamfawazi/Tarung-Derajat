@@ -1,8 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Link } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
 export default function Dashboard() {
+    const user = usePage().props.auth.user;
+    const permissions = user?.role?.permissions ?? [];
+    const canUploadVideos = permissions.includes('videos.create');
+
     const cards = [
         { label: 'Registered members', value: '1,240', note: 'Across 12 regions' },
         { label: 'Active coaches', value: '86', note: 'Using role-based access' },
@@ -53,6 +58,13 @@ export default function Dashboard() {
                             <li>YouTube-based video storage keeps database usage lean for the education module.</li>
                             <li>Excel reporting can be added without changing the dashboard shell.</li>
                         </ul>
+                        {canUploadVideos && (
+                            <div className="mt-6">
+                                <Link href={route('videos.upload')} className="tarung-button-secondary">
+                                    Open video upload
+                                </Link>
+                            </div>
+                        )}
                     </div>
 
                     <div className="tarung-shell rounded-[32px] p-6 lg:p-8">

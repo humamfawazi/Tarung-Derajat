@@ -31,9 +31,9 @@ export default function PublicLayout({ children }) {
                         <a href="#philosophy" className="text-sm font-medium text-[#050B0A]/70 transition hover:text-[#050B0A]">
                             Philosophy
                         </a>
-                        <a href="#video" className="text-sm font-medium text-[#050B0A]/70 transition hover:text-[#050B0A]">
-                            Education
-                        </a>
+                        <Link href={route('videos.index')} className="text-sm font-medium text-[#050B0A]/70 transition hover:text-[#050B0A]">
+                            Videos
+                        </Link>
                         {auth?.user ? (
                             <Link href={route('dashboard')} className="tarung-button-primary">
                                 Dashboard

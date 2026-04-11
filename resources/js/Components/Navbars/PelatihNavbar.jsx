@@ -34,6 +34,12 @@ export default function PelatihNavbar() {
                                 Dashboard
                             </NavLink>
                             <NavLink
+                                href={route('articles.index')}
+                                active={route().current('articles.index')}
+                            >
+                                Artikel
+                            </NavLink>
+                            <NavLink
                                 href={route('videos.index')}
                                 active={route().current('videos.index') || route().current('videos.show')}
                             >
@@ -147,6 +153,12 @@ export default function PelatihNavbar() {
                         active={route().current('dashboard')}
                     >
                         Dashboard
+                    </ResponsiveNavLink>
+                    <ResponsiveNavLink
+                        href={route('articles.index')}
+                        active={route().current('articles.index')}
+                    >
+                        Artikel
                     </ResponsiveNavLink>
                     <ResponsiveNavLink
                         href={route('videos.index')}

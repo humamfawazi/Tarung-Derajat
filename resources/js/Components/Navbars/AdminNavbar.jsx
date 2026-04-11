@@ -9,6 +9,34 @@ export default function AdminNavbar() {
     const user = usePage().props.auth.user;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
+    const adminMenus = [
+        {
+            label: 'Dashboard',
+            href: route('dashboard'),
+            active: route().current('dashboard'),
+        },
+        {
+            label: 'Video',
+            href: route('admin.videos.index'),
+            active: route().current('admin.videos.index') || route().current('admin.videos.edit'),
+        },
+        {
+            label: 'Artikel',
+            href: route('admin.articles.index'),
+            active: route().current('admin.articles.index') || route().current('admin.articles.edit'),
+        },
+        {
+            label: 'User',
+            href: route('admin.users.index'),
+            active: route().current('admin.users.index') || route().current('admin.users.edit'),
+        },
+        {
+            label: 'Landing Page',
+            href: route('admin.landing.index'),
+            active: route().current('admin.landing.index') || route().current('admin.landing.edit'),
+        },
+    ];
+
     return (
         <nav className="border-b border-[#050B0A]/10 bg-[#050B0A] text-white">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -21,35 +49,21 @@ export default function AdminNavbar() {
                                     Tarung Web
                                 </div>
                                 <div className="text-sm font-medium text-white">
-                                    Admin Shell
+                                    Admin Management
                                 </div>
                             </div>
                         </Link>
 
-                        <div className="hidden space-x-8 sm:flex">
-                            <NavLink
-                                href={route('dashboard')}
-                                active={route().current('dashboard')}
-                            >
-                                Dashboard
-                            </NavLink>
-                            <NavLink
-                                href={route('videos.index')}
-                                active={route().current('videos.index') || route().current('videos.show')}
-                            >
-                                Video
-                            </NavLink>
+                        <div className="hidden items-center gap-6 sm:flex">
+                            {adminMenus.map((menu) => (
+                                <NavLink key={menu.label} href={menu.href} active={menu.active}>
+                                    {menu.label}
+                                </NavLink>
+                            ))}
                         </div>
                     </div>
 
                     <div className="hidden items-center gap-4 sm:flex">
-                        <Link
-                            href={route('home')}
-                            className="text-sm font-medium text-white/70 transition hover:text-white"
-                        >
-                            Public Site
-                        </Link>
-
                         <div className="relative ms-3">
                             <Dropdown>
                                 <Dropdown.Trigger>
@@ -142,18 +156,11 @@ export default function AdminNavbar() {
                 }
             >
                 <div className="space-y-1 border-t border-white/10 pb-3 pt-2">
-                    <ResponsiveNavLink
-                        href={route('dashboard')}
-                        active={route().current('dashboard')}
-                    >
-                        Dashboard
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink
-                        href={route('videos.index')}
-                        active={route().current('videos.index') || route().current('videos.show')}
-                    >
-                        Video
-                    </ResponsiveNavLink>
+                    {adminMenus.map((menu) => (
+                        <ResponsiveNavLink key={menu.label} href={menu.href} active={menu.active}>
+                            {menu.label}
+                        </ResponsiveNavLink>
+                    ))}
                 </div>
 
                 <div className="border-t border-white/10 pb-1 pt-4">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -11,9 +12,65 @@ use Inertia\Response;
 
 class ArticleController extends Controller
 {
+    public function index(): Response
+    {
+        $articles = Article::query()
+            ->with('author:id,name')
+            ->latest('id')
+            ->get();
+
+        return Inertia::render('Articles/Index', [
+            'articles' => $articles,
+        ]);
+    }
+
+    public function manageIndex(): Response
+    {
+        $articles = Article::query()
+            ->with('author:id,name')
+            ->latest('id')
+            ->get();
+
+        return Inertia::render('Admin/Articles/Index', [
+            'articles' => $articles,
+        ]);
+    }
+
     public function create(): Response
     {
         return Inertia::render('Articles/Upload');
+    }
+
+    public function adminCreate(): Response
+    {
+        return Inertia::render('Admin/Articles/Create');
+    }
+
+    public function edit(Article $article): Response
+    {
+        return Inertia::render('Admin/Articles/Edit', [
+            'article' => $article,
+        ]);
+    }
+
+    public function update(Request $request, Article $article): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'is_featured' => ['required', 'boolean'],
+        ]);
+
+        $article->update($validated);
+
+        return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
+    }
+
+    public function destroy(Article $article): RedirectResponse
+    {
+        $article->delete();
+
+        return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus.');
     }
 
     public function store(StoreArticleRequest $request): RedirectResponse
@@ -31,6 +88,7 @@ class ArticleController extends Controller
             'title' => $request->string('title')->toString(),
             'content' => $request->string('content')->toString(),
             'image_path' => $imagePath,
+            'is_featured' => $request->boolean('is_featured') && $user->hasRole('admin'),
         ]);
 
         return redirect()->route('articles.upload')->with('success', 'Artikel berhasil diupload.');

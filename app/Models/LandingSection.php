@@ -4,29 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Article extends Model
+class LandingSection extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'locale',
+        'section_key',
         'title',
         'content',
-        'image_path',
-        'is_featured',
+        'is_active',
+        'sort_order',
     ];
 
     protected function casts(): array
     {
         return [
-            'is_featured' => 'boolean',
+            'is_active' => 'boolean',
         ];
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 }

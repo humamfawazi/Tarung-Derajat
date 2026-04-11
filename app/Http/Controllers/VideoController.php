@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVideoRequest;
 use App\Models\Video;
 use App\Services\YouTubeService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
@@ -45,6 +46,46 @@ class VideoController extends Controller
     public function create(): Response
     {
         return Inertia::render('Videos/Upload');
+    }
+
+    public function manageIndex(): Response
+    {
+        $videos = Video::query()
+            ->with('uploader:id,name')
+            ->latest('id')
+            ->get();
+
+        return Inertia::render('Admin/Videos/Index', [
+            'videos' => $videos,
+        ]);
+    }
+
+    public function edit(Video $video): Response
+    {
+        return Inertia::render('Admin/Videos/Edit', [
+            'video' => $video,
+        ]);
+    }
+
+    public function update(Request $request, Video $video): RedirectResponse
+    {
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
+            'visibility' => ['required', 'in:public,private,unlisted'],
+            'status' => ['required', 'in:published,draft,archived'],
+        ]);
+
+        $video->update($validated);
+
+        return redirect()->route('admin.videos.index')->with('success', 'Video berhasil diperbarui.');
+    }
+
+    public function destroy(Video $video): RedirectResponse
+    {
+        $video->delete();
+
+        return redirect()->route('admin.videos.index')->with('success', 'Video berhasil dihapus.');
     }
 
     public function store(StoreVideoRequest $request, YouTubeService $youTubeService): RedirectResponse

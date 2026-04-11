@@ -1,7 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 
 export default function VideosUpload() {
+    const user = usePage().props.auth.user;
+    const cancelHref = user?.role?.name === 'admin' ? route('admin.videos.index') : route('dashboard');
+
     const { data, setData, post, processing, errors, reset } = useForm({
         title: '',
         description: '',
@@ -85,9 +88,14 @@ export default function VideosUpload() {
                         {errors.video && <p className="mt-2 text-sm text-red-600">{errors.video}</p>}
                     </div>
 
-                    <button type="submit" disabled={processing} className="tarung-button-primary disabled:opacity-60">
-                        {processing ? 'Uploading...' : 'Upload ke YouTube'}
-                    </button>
+                    <div className="flex flex-wrap gap-2">
+                        <button type="submit" disabled={processing} className="tarung-button-primary disabled:opacity-60">
+                            {processing ? 'Uploading...' : 'Upload ke YouTube'}
+                        </button>
+                        <Link href={cancelHref} className="tarung-button-secondary">
+                            Batal
+                        </Link>
+                    </div>
                 </form>
             </div>
         </AuthenticatedLayout>

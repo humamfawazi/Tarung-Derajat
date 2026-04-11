@@ -73,10 +73,16 @@ const copy = {
     },
 };
 
-export default function Home() {
+export default function Home({ landingSections = [] }) {
     const { locale } = usePage().props;
     const currentLocale = locale?.current === 'en' ? 'en' : 'id';
     const content = copy[currentLocale];
+    const features = landingSections.length > 0
+        ? landingSections.map((item) => ({
+            title: item.title,
+            text: item.content,
+        }))
+        : content.features;
 
     return (
         <PublicLayout>
@@ -148,7 +154,7 @@ export default function Home() {
 
             <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
                 <div className="grid gap-4 lg:grid-cols-3">
-                    {content.features.map((feature) => (
+                    {features.map((feature) => (
                         <article key={feature.title} className="tarung-shell rounded-[28px] p-6">
                             <h2 className="text-xl font-bold">{feature.title}</h2>
                             <p className="mt-3 text-sm leading-6 text-[#050B0A]/70">{feature.text}</p>

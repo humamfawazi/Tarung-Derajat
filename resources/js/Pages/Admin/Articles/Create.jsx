@@ -1,24 +1,18 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm, usePage } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 
-export default function ArticlesUpload() {
-    const { flash, auth } = usePage().props;
-    const cancelHref = auth?.user?.role?.name === 'admin' ? route('admin.articles.index') : route('dashboard');
-
-    const { data, setData, post, processing, errors, reset } = useForm({
+export default function AdminArticlesCreate() {
+    const { data, setData, post, processing, errors } = useForm({
         title: '',
         content: '',
         image: null,
+        is_featured: false,
     });
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('articles.store'), {
+        post(route('admin.articles.store'), {
             forceFormData: true,
-            onSuccess: () => {
-                reset('title', 'content', 'image');
-            },
         });
     };
 
@@ -26,20 +20,14 @@ export default function ArticlesUpload() {
         <AuthenticatedLayout
             header={
                 <div>
-                    <div className="tarung-section-label">Content Studio</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Upload Artikel</h2>
+                    <div className="tarung-section-label">Admin Management</div>
+                    <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Tambah Artikel</h2>
                 </div>
             }
         >
-            <Head title="Upload Artikel" />
+            <Head title="Tambah Artikel" />
 
             <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
-                {flash?.success && (
-                    <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                        {flash.success}
-                    </div>
-                )}
-
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8" encType="multipart/form-data">
                     <div>
                         <label className="text-sm font-semibold text-[#050B0A]">Judul Artikel</label>
@@ -48,7 +36,6 @@ export default function ArticlesUpload() {
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
                             className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
-                            placeholder="Contoh: Manfaat Latihan Dasar Tarung Derajat"
                             required
                         />
                         {errors.title && <p className="mt-2 text-sm text-red-600">{errors.title}</p>}
@@ -57,11 +44,10 @@ export default function ArticlesUpload() {
                     <div>
                         <label className="text-sm font-semibold text-[#050B0A]">Isi Artikel</label>
                         <textarea
+                            rows={10}
                             value={data.content}
                             onChange={(e) => setData('content', e.target.value)}
-                            rows={8}
                             className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
-                            placeholder="Tulis isi artikel di sini..."
                             required
                         />
                         {errors.content && <p className="mt-2 text-sm text-red-600">{errors.content}</p>}
@@ -75,15 +61,23 @@ export default function ArticlesUpload() {
                             onChange={(e) => setData('image', e.target.files[0] ?? null)}
                             className="mt-2 block w-full text-sm text-[#050B0A] file:mr-4 file:rounded-full file:border-0 file:bg-[#050B0A] file:px-4 file:py-2 file:font-semibold file:text-white hover:file:opacity-90"
                         />
-                        <p className="mt-2 text-xs text-[#050B0A]/60">Maksimal 2MB. Format: jpg, jpeg, png, webp.</p>
                         {errors.image && <p className="mt-2 text-sm text-red-600">{errors.image}</p>}
                     </div>
 
+                    <label className="inline-flex items-center gap-2 text-sm text-[#050B0A]">
+                        <input
+                            type="checkbox"
+                            checked={data.is_featured}
+                            onChange={(e) => setData('is_featured', e.target.checked)}
+                        />
+                        Tampilkan di dashboard user
+                    </label>
+
                     <div className="flex flex-wrap gap-2">
                         <button type="submit" disabled={processing} className="tarung-button-primary disabled:opacity-60">
-                            {processing ? 'Uploading...' : 'Upload Artikel'}
+                            {processing ? 'Saving...' : 'Simpan Artikel'}
                         </button>
-                        <Link href={cancelHref} className="tarung-button-secondary">
+                        <Link href={route('admin.articles.index')} className="tarung-button-secondary">
                             Batal
                         </Link>
                     </div>

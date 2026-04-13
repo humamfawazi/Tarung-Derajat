@@ -10,23 +10,23 @@ export default function UserNavbar() {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
-        <nav className="border-b border-[#050B0A]/10 bg-[#050B0A] text-white">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
-                    <div className="flex items-center gap-6">
+        <nav className="sticky top-0 z-40 border-b border-white/70 bg-white/72 text-[#111827] backdrop-blur-xl">
+            <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+                <div className="flex min-h-[4.75rem] items-center justify-between rounded-full border border-white/80 bg-white/88 px-4 py-3 shadow-[0_18px_60px_rgba(59,130,246,0.08)] sm:px-6">
+                    <div className="flex items-center gap-4 sm:gap-6">
                         <Link href={route('home')} className="flex items-center gap-3">
-                            <ApplicationLogo className="block h-9 w-9 fill-current text-white" />
+                            <ApplicationLogo className="block h-9 w-9 fill-current text-[#1d4ed8]" />
                             <div>
-                                <div className="text-sm font-semibold uppercase tracking-[0.3em] text-white/60">
+                                <div className="text-sm font-semibold uppercase tracking-[0.3em] text-[#111827]/55">
                                     Tarung Web
                                 </div>
-                                <div className="text-sm font-medium text-white">
+                                <div className="hidden text-sm font-medium text-[#111827] sm:block">
                                     User Portal
                                 </div>
                             </div>
                         </Link>
 
-                        <div className="hidden space-x-8 sm:flex">
+                        <div className="hidden items-center gap-7 lg:flex">
                             <NavLink
                                 href={route('dashboard')}
                                 active={route().current('dashboard')}
@@ -48,21 +48,21 @@ export default function UserNavbar() {
                         </div>
                     </div>
 
-                    <div className="hidden items-center gap-4 sm:flex">
+                    <div className="hidden items-center gap-4 lg:flex">
                         <Link
                             href={route('home')}
-                            className="text-sm font-medium text-white/70 transition hover:text-white"
+                            className="text-sm font-medium text-[#111827]/65 transition hover:text-[#1d4ed8]"
                         >
                             Public Site
                         </Link>
 
-                        <div className="relative ms-3">
+                        <div className="relative ms-3 z-[60]">
                             <Dropdown>
                                 <Dropdown.Trigger>
-                                    <span className="inline-flex rounded-full border border-white/10 bg-white/5">
+                                    <span className="inline-flex rounded-full border border-[#1d4ed8]/10 bg-white px-1 shadow-sm">
                                         <button
                                             type="button"
-                                            className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out hover:bg-white/10 focus:outline-none"
+                                            className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold leading-4 text-[#111827] transition duration-150 ease-in-out hover:bg-[#eff6ff] focus:outline-none"
                                         >
                                             {user.name}
 
@@ -98,14 +98,14 @@ export default function UserNavbar() {
                         </div>
                     </div>
 
-                    <div className="-me-2 flex items-center sm:hidden">
+                    <div className="-me-1 flex items-center lg:hidden">
                         <button
                             onClick={() =>
                                 setShowingNavigationDropdown(
                                     (previousState) => !previousState,
                                 )
                             }
-                            className="inline-flex items-center justify-center rounded-md p-2 text-white/70 transition duration-150 ease-in-out hover:bg-white/10 hover:text-white focus:bg-white/10 focus:text-white focus:outline-none"
+                            className="inline-flex items-center justify-center rounded-full border border-[#1d4ed8]/10 bg-white p-2 text-[#111827]/70 transition duration-150 ease-in-out hover:bg-[#eff6ff] hover:text-[#1d4ed8] focus:bg-[#eff6ff] focus:text-[#1d4ed8] focus:outline-none"
                         >
                             <svg
                                 className="h-6 w-6"
@@ -144,51 +144,55 @@ export default function UserNavbar() {
             <div
                 className={
                     (showingNavigationDropdown ? 'block' : 'hidden') +
-                    ' sm:hidden'
+                    ' lg:hidden'
                 }
             >
-                <div className="space-y-1 border-t border-white/10 pb-3 pt-2">
-                    <ResponsiveNavLink
-                        href={route('dashboard')}
-                        active={route().current('dashboard')}
-                    >
-                        Dashboard
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink
-                        href={route('articles.index')}
-                        active={route().current('articles.index')}
-                    >
-                        Artikel
-                    </ResponsiveNavLink>
-                    <ResponsiveNavLink
-                        href={route('videos.index')}
-                        active={route().current('videos.index') || route().current('videos.show')}
-                    >
-                        Video
-                    </ResponsiveNavLink>
-                </div>
-
-                <div className="border-t border-white/10 pb-1 pt-4">
-                    <div className="px-4">
-                        <div className="text-base font-medium text-white">
-                            {user.name}
+                <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6">
+                    <div className="overflow-hidden rounded-[28px] border border-[#1d4ed8]/10 bg-white/95 shadow-[0_18px_50px_rgba(15,23,42,0.1)]">
+                        <div className="space-y-1 pb-3 pt-2">
+                            <ResponsiveNavLink
+                                href={route('dashboard')}
+                                active={route().current('dashboard')}
+                            >
+                                Dashboard
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('articles.index')}
+                                active={route().current('articles.index')}
+                            >
+                                Artikel
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('videos.index')}
+                                active={route().current('videos.index') || route().current('videos.show')}
+                            >
+                                Video
+                            </ResponsiveNavLink>
                         </div>
-                        <div className="text-sm font-medium text-white/60">
-                            {user.email}
-                        </div>
-                    </div>
 
-                    <div className="mt-3 space-y-1">
-                        <ResponsiveNavLink href={route('profile.edit')}>
-                            Profile
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            method="post"
-                            href={route('logout')}
-                            as="button"
-                        >
-                            Log Out
-                        </ResponsiveNavLink>
+                        <div className="border-t border-[#1d4ed8]/10 pb-1 pt-4">
+                            <div className="px-4">
+                                <div className="text-base font-medium text-[#111827]">
+                                    {user.name}
+                                </div>
+                                <div className="text-sm font-medium text-[#111827]/55">
+                                    {user.email}
+                                </div>
+                            </div>
+
+                            <div className="mt-3 space-y-1">
+                                <ResponsiveNavLink href={route('profile.edit')}>
+                                    Profile
+                                </ResponsiveNavLink>
+                                <ResponsiveNavLink
+                                    method="post"
+                                    href={route('logout')}
+                                    as="button"
+                                >
+                                    Log Out
+                                </ResponsiveNavLink>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

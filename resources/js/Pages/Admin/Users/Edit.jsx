@@ -19,7 +19,7 @@ export default function AdminUsersEdit({ user, roleOptions }) {
             header={
                 <div>
                     <div className="tarung-section-label">Admin Management</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Update User</h2>
+                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Update User</h2>
                 </div>
             }
         >
@@ -28,35 +28,35 @@ export default function AdminUsersEdit({ user, roleOptions }) {
             <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8">
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Nama</label>
+                        <label className="text-sm font-semibold text-[#111827]">Nama</label>
                         <input
                             type="text"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             required
                         />
                         {errors.name && <p className="mt-2 text-sm text-red-600">{errors.name}</p>}
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Email</label>
+                        <label className="text-sm font-semibold text-[#111827]">Email</label>
                         <input
                             type="email"
                             value={data.email}
                             onChange={(e) => setData('email', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             required
                         />
                         {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Role</label>
+                        <label className="text-sm font-semibold text-[#111827]">Role</label>
                         <select
                             value={data.role_name}
                             onChange={(e) => setData('role_name', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm capitalize focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm capitalize focus:border-[#1d4ed8] focus:outline-none"
                         >
                             {roleOptions.map((role) => (
                                 <option key={role} value={role} className="capitalize">
@@ -67,7 +67,7 @@ export default function AdminUsersEdit({ user, roleOptions }) {
                         {errors.role_name && <p className="mt-2 text-sm text-red-600">{errors.role_name}</p>}
                     </div>
 
-                    <label className="inline-flex items-center gap-2 text-sm text-[#050B0A]">
+                    <label className="inline-flex items-center gap-2 text-sm text-[#111827]">
                         <input
                             type="checkbox"
                             checked={data.is_verified}

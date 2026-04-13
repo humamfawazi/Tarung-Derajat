@@ -2,7 +2,7 @@ import ReactPlayer from 'react-player';
 
 export default function YouTubeEmbed({ url, title }) {
     return (
-        <div className="overflow-hidden rounded-[28px] border border-[#050B0A]/10 bg-[#050B0A] shadow-[0_24px_80px_rgba(5,11,10,0.18)]">
+        <div className="overflow-hidden rounded-[28px] border border-[#1d4ed8]/10 bg-[#0f172a] shadow-[0_24px_80px_rgba(15,23,42,0.18)]">
             <div className="aspect-video w-full">
                 <ReactPlayer
                     url={url}

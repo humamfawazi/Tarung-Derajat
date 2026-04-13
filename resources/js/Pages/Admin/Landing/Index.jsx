@@ -19,7 +19,7 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="tarung-section-label">Admin Management</div>
-                        <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Manajemen Landing Page</h2>
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Manajemen Landing Page</h2>
                     </div>
                     <Link href={route('admin.landing.create')} className="tarung-button-primary w-fit">
                         Tambah Section
@@ -44,7 +44,7 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
                 <div className="tarung-shell overflow-x-auto rounded-[28px] p-4 sm:p-6">
                     <table className="min-w-full text-left text-sm">
                         <thead>
-                            <tr className="border-b border-[#050B0A]/10">
+                            <tr className="border-b border-[#111827]/10">
                                 <th className="px-3 py-3 font-semibold">Locale</th>
                                 <th className="px-3 py-3 font-semibold">Key</th>
                                 <th className="px-3 py-3 font-semibold">Title</th>
@@ -56,13 +56,13 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
                         <tbody>
                             {sections.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-3 py-6 text-center text-[#050B0A]/60">
+                                    <td colSpan={6} className="px-3 py-6 text-center text-[#111827]/60">
                                         Belum ada data landing.
                                     </td>
                                 </tr>
                             ) : (
                                 sections.map((section) => (
-                                    <tr key={section.id} className="border-b border-[#050B0A]/5">
+                                    <tr key={section.id} className="border-b border-[#111827]/5">
                                         <td className="px-3 py-3 uppercase">{section.locale}</td>
                                         <td className="px-3 py-3">{section.section_key}</td>
                                         <td className="px-3 py-3 font-medium">{section.title}</td>

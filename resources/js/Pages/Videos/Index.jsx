@@ -15,10 +15,10 @@ export default function VideosIndex({ videos }) {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <div className="tarung-section-label">Education</div>
-                    <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#050B0A]">
+                    <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#111827]">
                         Video Technique Library
                     </h1>
-                    <p className="mt-3 max-w-2xl text-sm text-[#050B0A]/70">
+                    <p className="mt-3 max-w-2xl text-sm text-[#111827]/70">
                         Materi teknik dari pelatih akan otomatis dipublikasikan ke YouTube lalu ditampilkan di sini.
                     </p>
                 </div>
@@ -32,7 +32,7 @@ export default function VideosIndex({ videos }) {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-2">
                 {videos.length === 0 ? (
-                    <div className="tarung-shell col-span-full rounded-[28px] p-6 text-sm text-[#050B0A]/70">
+                    <div className="tarung-shell col-span-full rounded-[28px] p-6 text-sm text-[#111827]/70">
                         Belum ada video yang dipublikasikan.
                     </div>
                 ) : (
@@ -49,7 +49,7 @@ export default function VideosIndex({ videos }) {
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <div className="tarung-section-label">Education</div>
-                            <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Video Technique Library</h2>
+                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Video Technique Library</h2>
                         </div>
                         {canUpload && (
                             <Link href={route('videos.upload')} className="tarung-button-primary w-fit">

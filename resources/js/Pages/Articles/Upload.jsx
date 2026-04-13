@@ -27,7 +27,7 @@ export default function ArticlesUpload() {
             header={
                 <div>
                     <div className="tarung-section-label">Content Studio</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Upload Artikel</h2>
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Upload Artikel</h2>
                 </div>
             }
         >
@@ -42,12 +42,12 @@ export default function ArticlesUpload() {
 
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8" encType="multipart/form-data">
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Judul Artikel</label>
+                        <label className="text-sm font-semibold text-[#111827]">Judul Artikel</label>
                         <input
                             type="text"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             placeholder="Contoh: Manfaat Latihan Dasar Tarung Derajat"
                             required
                         />
@@ -55,12 +55,12 @@ export default function ArticlesUpload() {
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Isi Artikel</label>
+                        <label className="text-sm font-semibold text-[#111827]">Isi Artikel</label>
                         <textarea
                             value={data.content}
                             onChange={(e) => setData('content', e.target.value)}
                             rows={8}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             placeholder="Tulis isi artikel di sini..."
                             required
                         />
@@ -68,14 +68,14 @@ export default function ArticlesUpload() {
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Gambar (Opsional)</label>
+                        <label className="text-sm font-semibold text-[#111827]">Gambar (Opsional)</label>
                         <input
                             type="file"
                             accept="image/jpeg,image/jpg,image/png,image/webp"
                             onChange={(e) => setData('image', e.target.files[0] ?? null)}
-                            className="mt-2 block w-full text-sm text-[#050B0A] file:mr-4 file:rounded-full file:border-0 file:bg-[#050B0A] file:px-4 file:py-2 file:font-semibold file:text-white hover:file:opacity-90"
+                            className="mt-2 block w-full text-sm text-[#111827] file:mr-4 file:rounded-full file:border-0 file:bg-[#1d4ed8] file:px-4 file:py-2 file:font-semibold file:text-white hover:file:opacity-90"
                         />
-                        <p className="mt-2 text-xs text-[#050B0A]/60">Maksimal 2MB. Format: jpg, jpeg, png, webp.</p>
+                        <p className="mt-2 text-xs text-[#111827]/60">Maksimal 2MB. Format: jpg, jpeg, png, webp.</p>
                         {errors.image && <p className="mt-2 text-sm text-red-600">{errors.image}</p>}
                     </div>
 

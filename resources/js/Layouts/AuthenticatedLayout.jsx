@@ -20,11 +20,11 @@ export default function AuthenticatedLayout({ header, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-white text-[#050B0A]">
+        <div className="min-h-screen bg-[#f5f7ff] text-[#111827]">
             {renderNavbar()}
 
             {header && (
-                <header className="border-b border-[#050B0A]/10 bg-white">
+                <header className="border-b border-white/70 bg-white/80 backdrop-blur-xl">
                     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                         {header}
                     </div>

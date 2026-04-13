@@ -14,28 +14,29 @@
 	}
 
 	body {
-		@apply bg-white text-[#050B0A] antialiased;
+		@apply min-h-screen bg-white text-[#111827] antialiased;
 		font-family: 'Manrope', sans-serif;
 		background-image:
-			radial-gradient(circle at top left, rgba(5, 11, 10, 0.04), transparent 32%),
-			radial-gradient(circle at bottom right, rgba(5, 11, 10, 0.06), transparent 28%);
+			radial-gradient(circle at top left, rgba(191, 219, 254, 0.65), transparent 30%),
+			radial-gradient(circle at bottom right, rgba(219, 234, 254, 0.8), transparent 32%),
+			linear-gradient(180deg, #f8fbff 0%, #ffffff 42%, #ffffff 100%);
 	}
 }
 
 @layer components {
 	.tarung-shell {
-		@apply border border-[#050B0A]/10 bg-white shadow-[0_24px_80px_rgba(5,11,10,0.08)];
+		@apply border border-[#1d4ed8]/10 bg-white shadow-[0_24px_80px_rgba(15,23,42,0.08)];
 	}
 
 	.tarung-button-primary {
-		@apply inline-flex items-center justify-center rounded-full bg-[#050B0A] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90;
+		@apply inline-flex items-center justify-center rounded-full bg-[#1d4ed8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#1e40af];
 	}
 
 	.tarung-button-secondary {
-		@apply inline-flex items-center justify-center rounded-full border border-[#050B0A]/20 px-5 py-3 text-sm font-semibold text-[#050B0A] transition hover:bg-[#050B0A] hover:text-white;
+		@apply inline-flex items-center justify-center rounded-full border border-[#111827]/15 px-5 py-3 text-sm font-semibold text-[#111827] transition hover:bg-[#111827] hover:text-white;
 	}
 
 	.tarung-section-label {
-		@apply text-xs font-semibold uppercase tracking-[0.32em] text-[#050B0A]/60;
+		@apply text-xs font-semibold uppercase tracking-[0.32em] text-[#1d4ed8]/70;
 	}
 }

@@ -23,7 +23,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <div className="tarung-section-label">Admin dashboard</div>
-                            <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Kontrol CRUD Konten</h2>
+                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Kontrol CRUD Konten</h2>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             <Link href={route('admin.articles.create')} className="tarung-button-primary">Tambah Artikel</Link>
@@ -39,24 +39,24 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                 <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
                     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         <div className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#050B0A]/60">Total Artikel</div>
+                            <div className="text-sm font-medium text-[#111827]/60">Total Artikel</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{stats?.articles_count ?? 0}</div>
-                            <div className="mt-2 text-sm text-[#050B0A]/70">Featured: {stats?.featured_articles_count ?? 0}</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">Featured: {stats?.featured_articles_count ?? 0}</div>
                         </div>
                         <div className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#050B0A]/60">Total Video</div>
+                            <div className="text-sm font-medium text-[#111827]/60">Total Video</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{stats?.videos_count ?? 0}</div>
-                            <div className="mt-2 text-sm text-[#050B0A]/70">Status published</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">Status published</div>
                         </div>
                         <div className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#050B0A]/60">Total User</div>
+                            <div className="text-sm font-medium text-[#111827]/60">Total User</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{stats?.users_count ?? 0}</div>
-                            <div className="mt-2 text-sm text-[#050B0A]/70">User aktif sistem</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">User aktif sistem</div>
                         </div>
                         <div className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#050B0A]/60">Informasi Admin</div>
+                            <div className="text-sm font-medium text-[#111827]/60">Informasi Admin</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{adminCrud?.landing?.length ?? 0}</div>
-                            <div className="mt-2 text-sm text-[#050B0A]/70">Section ditampilkan</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">Section ditampilkan</div>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             </div>
                             <table className="min-w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-[#050B0A]/10">
+                                    <tr className="border-b border-[#111827]/10">
                                         <th className="px-2 py-2">Judul</th>
                                         <th className="px-2 py-2">Featured</th>
                                         <th className="px-2 py-2 text-right">Aksi</th>
@@ -76,7 +76,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 </thead>
                                 <tbody>
                                     {(adminCrud?.articles ?? []).map((item) => (
-                                        <tr key={item.id} className="border-b border-[#050B0A]/5">
+                                        <tr key={item.id} className="border-b border-[#111827]/5">
                                             <td className="px-2 py-2">{item.title}</td>
                                             <td className="px-2 py-2">{item.is_featured ? 'Ya' : 'Tidak'}</td>
                                             <td className="px-2 py-2 text-right">
@@ -98,7 +98,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             </div>
                             <table className="min-w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-[#050B0A]/10">
+                                    <tr className="border-b border-[#111827]/10">
                                         <th className="px-2 py-2">Nama</th>
                                         <th className="px-2 py-2">Verified</th>
                                         <th className="px-2 py-2 text-right">Aksi</th>
@@ -106,7 +106,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 </thead>
                                 <tbody>
                                     {(adminCrud?.users ?? []).map((item) => (
-                                        <tr key={item.id} className="border-b border-[#050B0A]/5">
+                                        <tr key={item.id} className="border-b border-[#111827]/5">
                                             <td className="px-2 py-2">{item.name}</td>
                                             <td className="px-2 py-2">{item.email_verified_at ? 'Ya' : 'Tidak'}</td>
                                             <td className="px-2 py-2 text-right">
@@ -127,7 +127,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             </div>
                             <table className="min-w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-[#050B0A]/10">
+                                    <tr className="border-b border-[#111827]/10">
                                         <th className="px-2 py-2">Judul</th>
                                         <th className="px-2 py-2">Status</th>
                                         <th className="px-2 py-2 text-right">Aksi</th>
@@ -135,7 +135,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 </thead>
                                 <tbody>
                                     {(adminCrud?.videos ?? []).map((item) => (
-                                        <tr key={item.id} className="border-b border-[#050B0A]/5">
+                                        <tr key={item.id} className="border-b border-[#111827]/5">
                                             <td className="px-2 py-2">{item.title}</td>
                                             <td className="px-2 py-2 capitalize">{item.status}</td>
                                             <td className="px-2 py-2 text-right">
@@ -157,7 +157,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             </div>
                             <table className="min-w-full text-left text-sm">
                                 <thead>
-                                    <tr className="border-b border-[#050B0A]/10">
+                                    <tr className="border-b border-[#111827]/10">
                                         <th className="px-2 py-2">Judul</th>
                                         <th className="px-2 py-2">Aktif</th>
                                         <th className="px-2 py-2 text-right">Aksi</th>
@@ -165,7 +165,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 </thead>
                                 <tbody>
                                     {(adminCrud?.landing ?? []).map((item) => (
-                                        <tr key={item.id} className="border-b border-[#050B0A]/5">
+                                        <tr key={item.id} className="border-b border-[#111827]/5">
                                             <td className="px-2 py-2">{item.title}</td>
                                             <td className="px-2 py-2">{item.is_active ? 'Ya' : 'Tidak'}</td>
                                             <td className="px-2 py-2 text-right">
@@ -191,7 +191,7 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="tarung-section-label">Member dashboard</div>
-                        <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">
                             Ringkasan materi latihan
                         </h2>
                     </div>
@@ -212,13 +212,13 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                 <div className="grid gap-4 md:grid-cols-2">
                     {cards.map((card) => (
                         <div key={card.label} className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#050B0A]/60">
+                            <div className="text-sm font-medium text-[#111827]/60">
                                 {card.label}
                             </div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">
                                 {card.value}
                             </div>
-                            <div className="mt-2 text-sm text-[#050B0A]/70">{card.note}</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">{card.note}</div>
                         </div>
                     ))}
                 </div>
@@ -238,18 +238,18 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                         <div className="mt-5 space-y-4">
                             {latestArticles?.length ? (
                                 latestArticles.map((article) => (
-                                    <div key={article.id} className="rounded-2xl border border-[#050B0A]/10 px-4 py-4">
-                                        <div className="text-xs uppercase tracking-[0.18em] text-[#050B0A]/55">
+                                    <div key={article.id} className="rounded-2xl border border-[#111827]/10 px-4 py-4">
+                                        <div className="text-xs uppercase tracking-[0.18em] text-[#111827]/55">
                                             {article.author?.name ?? 'Admin'}
                                         </div>
-                                        <div className="mt-2 text-base font-semibold text-[#050B0A]">{article.title}</div>
-                                        <div className="mt-2 line-clamp-2 text-sm text-[#050B0A]/72">
+                                        <div className="mt-2 text-base font-semibold text-[#111827]">{article.title}</div>
+                                        <div className="mt-2 line-clamp-2 text-sm text-[#111827]/72">
                                             {article.content}
                                         </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className="rounded-2xl border border-[#050B0A]/10 px-4 py-4 text-sm text-[#050B0A]/65">
+                                <div className="rounded-2xl border border-[#111827]/10 px-4 py-4 text-sm text-[#111827]/65">
                                     Belum ada artikel untuk ditampilkan.
                                 </div>
                             )}
@@ -261,13 +261,13 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                         <div className="mt-4 space-y-4">
                             {adminInfos?.length ? (
                                 adminInfos.map((info) => (
-                                    <div key={info.id} className="rounded-2xl border border-[#050B0A]/10 px-4 py-4">
-                                        <div className="text-sm font-semibold text-[#050B0A]">{info.title}</div>
-                                        <p className="mt-2 text-sm leading-6 text-[#050B0A]/72">{info.content}</p>
+                                    <div key={info.id} className="rounded-2xl border border-[#111827]/10 px-4 py-4">
+                                        <div className="text-sm font-semibold text-[#111827]">{info.title}</div>
+                                        <p className="mt-2 text-sm leading-6 text-[#111827]/72">{info.content}</p>
                                     </div>
                                 ))
                             ) : (
-                                <div className="rounded-2xl border border-[#050B0A]/10 px-4 py-4 text-sm text-[#050B0A]/65">
+                                <div className="rounded-2xl border border-[#111827]/10 px-4 py-4 text-sm text-[#111827]/65">
                                     Belum ada informasi admin.
                                 </div>
                             )}

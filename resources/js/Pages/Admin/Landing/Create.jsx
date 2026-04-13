@@ -21,7 +21,7 @@ export default function AdminLandingCreate() {
             header={
                 <div>
                     <div className="tarung-section-label">Admin Management</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Tambah Landing Section</h2>
+                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Tambah Landing Section</h2>
                 </div>
             }
         >
@@ -31,11 +31,11 @@ export default function AdminLandingCreate() {
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8">
                     <div className="grid gap-4 sm:grid-cols-2">
                         <div>
-                            <label className="text-sm font-semibold text-[#050B0A]">Locale</label>
+                            <label className="text-sm font-semibold text-[#111827]">Locale</label>
                             <select
                                 value={data.locale}
                                 onChange={(e) => setData('locale', e.target.value)}
-                                className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                                className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             >
                                 <option value="id">ID</option>
                                 <option value="en">EN</option>
@@ -43,55 +43,55 @@ export default function AdminLandingCreate() {
                             {errors.locale && <p className="mt-2 text-sm text-red-600">{errors.locale}</p>}
                         </div>
                         <div>
-                            <label className="text-sm font-semibold text-[#050B0A]">Sort Order</label>
+                            <label className="text-sm font-semibold text-[#111827]">Sort Order</label>
                             <input
                                 type="number"
                                 min="0"
                                 value={data.sort_order}
                                 onChange={(e) => setData('sort_order', Number(e.target.value))}
-                                className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                                className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             />
                             {errors.sort_order && <p className="mt-2 text-sm text-red-600">{errors.sort_order}</p>}
                         </div>
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Section Key</label>
+                        <label className="text-sm font-semibold text-[#111827]">Section Key</label>
                         <input
                             type="text"
                             value={data.section_key}
                             onChange={(e) => setData('section_key', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             required
                         />
                         {errors.section_key && <p className="mt-2 text-sm text-red-600">{errors.section_key}</p>}
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Title</label>
+                        <label className="text-sm font-semibold text-[#111827]">Title</label>
                         <input
                             type="text"
                             value={data.title}
                             onChange={(e) => setData('title', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             required
                         />
                         {errors.title && <p className="mt-2 text-sm text-red-600">{errors.title}</p>}
                     </div>
 
                     <div>
-                        <label className="text-sm font-semibold text-[#050B0A]">Content</label>
+                        <label className="text-sm font-semibold text-[#111827]">Content</label>
                         <textarea
                             rows={8}
                             value={data.content}
                             onChange={(e) => setData('content', e.target.value)}
-                            className="mt-2 w-full rounded-2xl border border-[#050B0A]/15 px-4 py-3 text-sm focus:border-[#050B0A] focus:outline-none"
+                            className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
                             required
                         />
                         {errors.content && <p className="mt-2 text-sm text-red-600">{errors.content}</p>}
                     </div>
 
-                    <label className="inline-flex items-center gap-2 text-sm text-[#050B0A]">
+                    <label className="inline-flex items-center gap-2 text-sm text-[#111827]">
                         <input
                             type="checkbox"
                             checked={data.is_active}

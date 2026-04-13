@@ -5,6 +5,9 @@ import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
+const secondaryButtonClass =
+    'inline-flex items-center justify-center rounded-full border border-[#1d4ed8]/15 bg-white px-5 py-3 text-xs font-semibold uppercase tracking-widest text-[#1d4ed8] transition duration-150 ease-in-out hover:border-[#1d4ed8]/30 hover:bg-[#eff6ff] focus:outline-none focus:ring-2 focus:ring-[#1d4ed8] focus:ring-offset-2';
+
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
@@ -25,7 +28,19 @@ export default function Register() {
         <GuestLayout>
             <Head title="Register" />
 
-            <form onSubmit={submit}>
+            <div className="mb-6">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#1d4ed8]/65">
+                    Member access
+                </p>
+                <h1 className="mt-3 text-2xl font-bold text-[#111827]">
+                    Buat akun baru
+                </h1>
+                <p className="mt-2 text-sm leading-6 text-[#111827]/60">
+                    Daftar untuk mulai mengakses fitur dan layanan Tarung Web.
+                </p>
+            </div>
+
+            <form onSubmit={submit} className="space-y-4">
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
 
@@ -102,16 +117,13 @@ export default function Register() {
                     />
                 </div>
 
-                <div className="mt-4 flex items-center justify-end">
-                    <Link
-                        href={route('login')}
-                        className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                        Already registered?
+                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <Link href={route('login')} className={secondaryButtonClass}>
+                        Sudah punya akun?
                     </Link>
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
+                    <PrimaryButton className="w-full sm:w-auto" disabled={processing}>
+                        Daftar
                     </PrimaryButton>
                 </div>
             </form>

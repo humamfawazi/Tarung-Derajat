@@ -1,6 +1,6 @@
 export default function LanguageSwitcher({ locales = [], currentLocale = 'id' }) {
     return (
-        <div className="inline-flex rounded-full border border-[#050B0A]/10 bg-white p-1 shadow-sm">
+        <div className="inline-flex rounded-full border border-[#1d4ed8]/10 bg-white p-1 shadow-sm">
             {locales.map((locale) => (
                 <a
                     key={locale.code}
@@ -8,8 +8,8 @@ export default function LanguageSwitcher({ locales = [], currentLocale = 'id' })
                     className={
                         'rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.24em] transition ' +
                         (locale.code === currentLocale
-                            ? 'bg-[#050B0A] text-white'
-                            : 'text-[#050B0A]/60 hover:bg-[#050B0A]/5 hover:text-[#050B0A]')
+                            ? 'bg-[#1d4ed8] text-white'
+                            : 'text-[#111827]/60 hover:bg-[#eff6ff] hover:text-[#1d4ed8]')
                     }
                 >
                     {locale.code}

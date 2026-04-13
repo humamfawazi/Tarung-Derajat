@@ -19,7 +19,7 @@ export default function AdminVideosIndex({ videos }) {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="tarung-section-label">Admin Management</div>
-                        <h2 className="mt-2 text-2xl font-bold text-[#050B0A]">Manajemen Video</h2>
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Manajemen Video</h2>
                     </div>
                     <Link href={route('videos.upload')} className="tarung-button-primary w-fit">
                         Upload Video
@@ -44,7 +44,7 @@ export default function AdminVideosIndex({ videos }) {
                 <div className="tarung-shell overflow-x-auto rounded-[28px] p-4 sm:p-6">
                     <table className="min-w-full text-left text-sm">
                         <thead>
-                            <tr className="border-b border-[#050B0A]/10">
+                            <tr className="border-b border-[#111827]/10">
                                 <th className="px-3 py-3 font-semibold">Judul</th>
                                 <th className="px-3 py-3 font-semibold">Uploader</th>
                                 <th className="px-3 py-3 font-semibold">Visibility</th>
@@ -56,13 +56,13 @@ export default function AdminVideosIndex({ videos }) {
                         <tbody>
                             {videos.length === 0 ? (
                                 <tr>
-                                    <td colSpan={6} className="px-3 py-6 text-center text-[#050B0A]/60">
+                                    <td colSpan={6} className="px-3 py-6 text-center text-[#111827]/60">
                                         Belum ada video.
                                     </td>
                                 </tr>
                             ) : (
                                 videos.map((video) => (
-                                    <tr key={video.id} className="border-b border-[#050B0A]/5">
+                                    <tr key={video.id} className="border-b border-[#111827]/5">
                                         <td className="px-3 py-3 font-medium">{video.title}</td>
                                         <td className="px-3 py-3">{video.uploader?.name ?? '-'}</td>
                                         <td className="px-3 py-3 capitalize">{video.visibility}</td>

@@ -34,16 +34,10 @@ export default function PelatihNavbar() {
                                 Dashboard
                             </NavLink>
                             <NavLink
-                                href={route('articles.index')}
-                                active={route().current('articles.index')}
+                                href={`${route('home')}#information`}
+                                active={route().current('home') || route().current('home.id') || route().current('home.en')}
                             >
-                                Artikel
-                            </NavLink>
-                            <NavLink
-                                href={route('videos.index')}
-                                active={route().current('videos.index') || route().current('videos.show')}
-                            >
-                                Video
+                                Informasi
                             </NavLink>
                         </div>
                     </div>
@@ -157,16 +151,10 @@ export default function PelatihNavbar() {
                                 Dashboard
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
-                                href={route('articles.index')}
-                                active={route().current('articles.index')}
+                                href={`${route('home')}#information`}
+                                active={route().current('home') || route().current('home.id') || route().current('home.en')}
                             >
-                                Artikel
-                            </ResponsiveNavLink>
-                            <ResponsiveNavLink
-                                href={route('videos.index')}
-                                active={route().current('videos.index') || route().current('videos.show')}
-                            >
-                                Video
+                                Informasi
                             </ResponsiveNavLink>
                         </div>
 

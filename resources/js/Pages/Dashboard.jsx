@@ -3,7 +3,7 @@ import { Link } from '@inertiajs/react';
 import { Head } from '@inertiajs/react';
 import { usePage } from '@inertiajs/react';
 
-export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud }) {
+export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud, youtubeConnected = false }) {
     const user = usePage().props.auth.user;
     const roleName = user?.role?.name ?? null;
     const isAdmin = roleName === 'admin';
@@ -24,12 +24,38 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                         <div>
                             <div className="tarung-section-label">Admin dashboard</div>
                             <h2 className="mt-2 text-2xl font-bold text-[#111827]">Kontrol CRUD Konten</h2>
+                            <p className="mt-2 max-w-2xl text-sm text-[#111827]/65">
+                                Pusatkan kelola konten lewat Pusat Konten User, lalu gunakan menu lain untuk manajemen user dan jumlah tampil.
+                            </p>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            <Link href={route('admin.articles.create')} className="tarung-button-primary">Tambah Artikel</Link>
-                            <Link href={route('admin.users.create')} className="tarung-button-primary">Tambah User</Link>
-                            <Link href={route('videos.upload')} className="tarung-button-primary">Tambah Video</Link>
-                            <Link href={route('admin.landing.create')} className="tarung-button-primary">Tambah Teks</Link>
+                            {youtubeConnected ? (
+                                <>
+                                    <a
+                                        href={route('admin.youtube.reconnect')}
+                                        className="rounded-full bg-amber-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-amber-700"
+                                    >
+                                        YouTube Connected (Reconnect)
+                                    </a>
+                                    <a
+                                        href={route('admin.youtube.disconnect')}
+                                        className="rounded-full bg-emerald-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-emerald-700"
+                                    >
+                                        Disconnect YouTube
+                                    </a>
+                                </>
+                            ) : (
+                                <a
+                                    href={route('admin.youtube.connect')}
+                                    className="rounded-full bg-red-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-red-700"
+                                >
+                                    YouTube Belum Connected (Connect)
+                                </a>
+                            )}
+                            <Link href={route('content.create')} className="tarung-button-primary">Tambah Konten</Link>
+                            <Link href={route('admin.content.index')} className="tarung-button-secondary">Buka Pusat Konten User</Link>
+                            <Link href={route('admin.display-settings.edit')} className="tarung-button-secondary">Atur Jumlah Tampil</Link>
+                            <Link href={route('admin.users.create')} className="tarung-button-secondary">Tambah User Baru</Link>
                         </div>
                     </div>
                 }
@@ -54,9 +80,9 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             <div className="mt-2 text-sm text-[#111827]/70">User aktif sistem</div>
                         </div>
                         <div className="tarung-shell rounded-[28px] p-6">
-                            <div className="text-sm font-medium text-[#111827]/60">Informasi Admin</div>
+                            <div className="text-sm font-medium text-[#111827]/60">Konten User</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{adminCrud?.landing?.length ?? 0}</div>
-                            <div className="mt-2 text-sm text-[#111827]/70">Section ditampilkan</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">Section landing tersedia</div>
                         </div>
                     </div>
 
@@ -152,13 +178,18 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
 
                         <div className="tarung-shell overflow-x-auto rounded-[28px] p-5">
                             <div className="mb-4 flex items-center justify-between">
-                                <h3 className="text-lg font-bold">Informasi Dashboard</h3>
-                                <Link href={route('admin.landing.index')} className="tarung-button-secondary">Kelola</Link>
+                                <h3 className="text-lg font-bold">Konten User</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    <Link href={route('admin.content.index')} className="tarung-button-secondary">Pusat Konten</Link>
+                                    <Link href={route('admin.display-settings.edit')} className="tarung-button-secondary">Atur Jumlah</Link>
+                                </div>
                             </div>
                             <table className="min-w-full text-left text-sm">
                                 <thead>
                                     <tr className="border-b border-[#111827]/10">
+                                        <th className="px-2 py-2">Jenis</th>
                                         <th className="px-2 py-2">Judul</th>
+                                        <th className="px-2 py-2">Bahasa</th>
                                         <th className="px-2 py-2">Aktif</th>
                                         <th className="px-2 py-2 text-right">Aksi</th>
                                     </tr>
@@ -166,7 +197,9 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 <tbody>
                                     {(adminCrud?.landing ?? []).map((item) => (
                                         <tr key={item.id} className="border-b border-[#111827]/5">
+                                            <td className="px-2 py-2 capitalize">{(item.section_key ?? '').split('_')[0] || '-'}</td>
                                             <td className="px-2 py-2">{item.title}</td>
+                                            <td className="px-2 py-2 uppercase">{item.locale ?? '-'}</td>
                                             <td className="px-2 py-2">{item.is_active ? 'Ya' : 'Tidak'}</td>
                                             <td className="px-2 py-2 text-right">
                                                 <div className="inline-flex gap-2">
@@ -196,11 +229,8 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                         </h2>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        <Link href={route('articles.index')} className="tarung-button-secondary w-fit">
-                            Lihat artikel
-                        </Link>
-                        <Link href={route('videos.index')} className="tarung-button-secondary w-fit">
-                            Lihat video
+                        <Link href={`${route('home')}#information`} className="tarung-button-secondary w-fit">
+                            Lihat informasi
                         </Link>
                     </div>
                 </div>
@@ -230,8 +260,8 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                                 <div className="tarung-section-label">Artikel terbaru</div>
                                 <h3 className="mt-3 text-2xl font-bold">Update materi terkini</h3>
                             </div>
-                            <Link href={route('articles.index')} className="tarung-button-secondary">
-                                Semua artikel
+                            <Link href={`${route('home')}#information`} className="tarung-button-secondary">
+                                Semua informasi
                             </Link>
                         </div>
 

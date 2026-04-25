@@ -116,15 +116,6 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
-
-            <div className="mt-6 border-t border-[#1d4ed8]/10 pt-5">
-                <p className="mb-3 text-sm text-[#111827]/60">
-                    Belum punya akun?
-                </p>
-                <Link href={route('register')} className={`${secondaryButtonClass} w-full`}>
-                    Daftar
-                </Link>
-            </div>
         </GuestLayout>
     );
 }

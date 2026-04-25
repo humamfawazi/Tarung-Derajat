@@ -10,8 +10,8 @@ export default function VideosDetail({ video }) {
     const pageContent = (
         <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="mb-6">
-                <Link href={route('videos.index')} className="text-sm font-semibold text-[#111827]/70 hover:text-[#1d4ed8]">
-                    ← Back to video library
+                <Link href={`${route('home')}#information`} className="text-sm font-semibold text-[#111827]/70 hover:text-[#1d4ed8]">
+                    ← Back to information section
                 </Link>
             </div>
 

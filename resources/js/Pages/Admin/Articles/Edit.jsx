@@ -41,7 +41,7 @@ export default function AdminArticlesEdit({ article }) {
                     <div>
                         <label className="text-sm font-semibold text-[#111827]">Isi Artikel</label>
                         <textarea
-                            rows={10}
+                            rows={10}   
                             value={data.content}
                             onChange={(e) => setData('content', e.target.value)}
                             className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"

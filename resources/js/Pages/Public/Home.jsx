@@ -1,6 +1,8 @@
 import YouTubeEmbed from '@/Components/YouTubeEmbed';
+import Modal from '@/Components/Modal';
 import PublicLayout from '@/Layouts/PublicLayout';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { useState } from 'react';
 
 const copy = {
     id: {
@@ -154,7 +156,23 @@ function DecorativeCard({ label, className = '', badgeClassName = '' }) {
     );
 }
 
-export default function Home({ landingSections = [] }) {
+const formatDate = (value) => {
+    if (!value) {
+        return '-';
+    }
+
+    return new Date(value).toLocaleDateString();
+};
+
+export default function Home({
+    landingSections = [],
+    historySections = [],
+    philosophySections = [],
+    educationSections = [],
+    latestArticles = [],
+    latestVideos = [],
+}) {
+    const [activePreview, setActivePreview] = useState(null);
     const { locale } = usePage().props;
     const currentLocale = locale?.current === 'en' ? 'en' : 'id';
     const content = copy[currentLocale];
@@ -162,12 +180,32 @@ export default function Home({ landingSections = [] }) {
         ? landingSections.map((item) => ({
             title: item.title,
             text: item.content,
+            imagePath: item.image_path ?? null,
         }))
         : content.features;
+
+    const historyItems = historySections.length > 0
+        ? historySections
+        : [{ id: 'fallback-history', title: content.historyTitle, content: content.historyText }];
+
+    const philosophyItems = philosophySections.length > 0
+        ? philosophySections
+        : [{ id: 'fallback-philosophy', title: content.philosophyTitle, content: content.philosophyText }];
+
+    const educationItems = educationSections.length > 0
+        ? educationSections
+        : [{ id: 'fallback-education', title: content.educationTitle, content: content.educationText }];
 
     const fieldValues = Object.fromEntries(
         searchFields.map((field, index) => [field.key, content.searchFields[index]]),
     );
+    const homeInformationUrl = `${currentLocale === 'en' ? route('home.en') : route('home')}#information`;
+
+    const openPreview = ({ title, contentText, meta = '', ctaUrl = null, ctaLabel = null }) => {
+        setActivePreview({ title, contentText, meta, ctaUrl, ctaLabel });
+    };
+
+    const closePreview = () => setActivePreview(null);
 
     return (
         <PublicLayout>
@@ -307,7 +345,7 @@ export default function Home({ landingSections = [] }) {
                 </div>
             </section>
 
-            <section id="features" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+            <section id="features" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
                 <div className="flex items-end justify-between gap-6">
                     <div>
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
@@ -319,48 +357,126 @@ export default function Home({ landingSections = [] }) {
                     </div>
                 </div>
 
-                <div className="mt-8 grid gap-5 lg:grid-cols-3">
+                <div className="mt-6 grid gap-4">
                     {features.map((feature) => (
                         <article key={feature.title} className="rounded-[30px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)]">
+                            {feature.imagePath ? (
+                                <div className="mb-4 overflow-hidden rounded-2xl border border-[#111827]/10 bg-white">
+                                    <img
+                                        src={`/storage/${feature.imagePath}`}
+                                        alt={feature.title}
+                                        className="aspect-[4/3] w-full object-cover"
+                                    />
+                                </div>
+                            ) : null}
                             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eff6ff] text-lg font-bold text-[#1d4ed8]">
                                 •
                             </div>
                             <h3 className="mt-5 text-xl font-bold text-[#111827]">
                                 {feature.title}
                             </h3>
-                            <p className="mt-3 text-sm leading-7 text-[#111827]/68">
+                            <p className="mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-7 text-[#111827]/68">
                                 {feature.text}
                             </p>
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    openPreview({
+                                        title: feature.title,
+                                        contentText: feature.text,
+                                        meta: 'Feature',
+                                    })
+                                }
+                                className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                            >
+                                Baca
+                            </button>
                         </article>
                     ))}
                 </div>
             </section>
 
-            <section id="history" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-                <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-stretch">
-                    <div className="rounded-[34px] border border-white/80 bg-white/90 p-7 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-8">
+            <section id="history" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+                <div className="space-y-5">
+                    <div className="rounded-[34px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
                             History
                         </div>
-                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
-                            {content.historyTitle}
-                        </h2>
-                        <p className="mt-5 text-base leading-8 text-[#111827]/70">
-                            {content.historyText}
-                        </p>
+                        <div className="mt-4 space-y-4">
+                            {historyItems.map((item) => (
+                                <article key={item.id} className="rounded-2xl border border-[#111827]/10 bg-white px-5 py-4">
+                                    {item.image_path ? (
+                                        <div className="mb-4 max-w-sm mx-auto overflow-hidden rounded-xl border border-[#111827]/10 bg-white">
+                                            <img
+                                                src={`/storage/${item.image_path}`}
+                                                alt={item.title}
+                                                className="aspect-[4/3] w-full object-cover"
+                                            />
+                                        </div>
+                                    ) : null}
+                                    <h2 className="text-xl font-bold tracking-tight text-[#111827]">
+                                        {item.title}
+                                    </h2>
+                                    <p className="mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-7 text-[#111827]/70">
+                                        {item.content}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            openPreview({
+                                                title: item.title,
+                                                contentText: item.content,
+                                                meta: 'History',
+                                            })
+                                        }
+                                        className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                    >
+                                        Baca
+                                    </button>
+                                </article>
+                            ))}
+                        </div>
                     </div>
 
-                    <div id="philosophy" className="rounded-[34px] border border-[#1d4ed8]/10 bg-[linear-gradient(180deg,#eff6ff_0%,#ffffff_100%)] p-7 shadow-[0_18px_70px_rgba(29,78,216,0.08)] sm:p-8">
+                    <div id="philosophy" className="rounded-[34px] border border-[#1d4ed8]/10 bg-[linear-gradient(180deg,#eff6ff_0%,#ffffff_100%)] p-6 shadow-[0_18px_70px_rgba(29,78,216,0.08)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
                             Philosophy
                         </div>
-                        <h3 className="mt-4 text-2xl font-bold text-[#111827]">
-                            {content.philosophyTitle}
-                        </h3>
-                        <p className="mt-4 text-sm leading-7 text-[#111827]/70">
-                            {content.philosophyText}
-                        </p>
-                        <div className="mt-6 grid gap-3 text-sm text-[#111827]/80">
+                        <div className="mt-4 space-y-4">
+                            {philosophyItems.map((item) => (
+                                <article key={item.id} className="rounded-2xl border border-white/70 bg-white px-5 py-4">
+                                    {item.image_path ? (
+                                        <div className="mb-4 overflow-hidden rounded-xl border border-[#111827]/10 bg-white">
+                                            <img
+                                                src={`/storage/${item.image_path}`}
+                                                alt={item.title}
+                                                className="h-44 w-full object-cover"
+                                            />
+                                        </div>
+                                    ) : null}
+                                    <h3 className="text-xl font-bold text-[#111827]">
+                                        {item.title}
+                                    </h3>
+                                    <p className="mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-7 text-[#111827]/70">
+                                        {item.content}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            openPreview({
+                                                title: item.title,
+                                                contentText: item.content,
+                                                meta: 'Philosophy',
+                                            })
+                                        }
+                                        className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                    >
+                                        Baca
+                                    </button>
+                                </article>
+                            ))}
+                        </div>
+                        <div className="mt-5 grid gap-2 text-sm text-[#111827]/80">
                             {content.pillars.map((item) => (
                                 <div key={item} className="rounded-2xl border border-white/70 bg-white px-4 py-3 shadow-sm">
                                     {item}
@@ -371,20 +487,48 @@ export default function Home({ landingSections = [] }) {
                 </div>
             </section>
 
-            <section id="education" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-                <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-                    <div className="rounded-[34px] border border-white/80 bg-white/90 p-7 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-8">
+            <section id="education" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-10">
+                <div className="space-y-6">
+                    <div className="rounded-[34px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
                             Education
                         </div>
-                        <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
-                            {content.educationTitle}
-                        </h2>
-                        <p className="mt-5 text-base leading-8 text-[#111827]/70">
-                            {content.educationText}
-                        </p>
+                        <div className="mt-4 space-y-4">
+                            {educationItems.map((item) => (
+                                <article key={item.id} className="rounded-2xl border border-[#111827]/10 bg-white px-5 py-4">
+                                    {item.image_path ? (
+                                        <div className="mb-4 overflow-hidden rounded-xl border border-[#111827]/10 bg-white">
+                                            <img
+                                                src={`/storage/${item.image_path}`}
+                                                alt={item.title}
+                                                className="aspect-[4/3] w-full object-cover"
+                                            />
+                                        </div>
+                                    ) : null}
+                                    <h2 className="text-xl font-bold tracking-tight text-[#111827]">
+                                        {item.title}
+                                    </h2>
+                                    <p className="mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-7 text-[#111827]/70">
+                                        {item.content}
+                                    </p>
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            openPreview({
+                                                title: item.title,
+                                                contentText: item.content,
+                                                meta: 'Education',
+                                            })
+                                        }
+                                        className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                    >
+                                        Baca
+                                    </button>
+                                </article>
+                            ))}
+                        </div>
 
-                        <div className="mt-8 rounded-[28px] border border-[#111827]/8 bg-[#f8fbff] p-6">
+                        <div className="mt-6 rounded-[28px] border border-[#111827]/8 bg-[#f8fbff] p-5">
                             <h3 className="text-lg font-bold text-[#111827]">
                                 {content.adminTitle}
                             </h3>
@@ -394,12 +538,189 @@ export default function Home({ landingSections = [] }) {
                         </div>
                     </div>
 
-                    <YouTubeEmbed
-                        url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
-                        title="Technique demo placeholder - replaced by coach uploads later"
-                    />
+                   
                 </div>
             </section>
+
+            <section id="information" className="mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-6 lg:px-8 lg:pb-14 lg:pt-8">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
+                            Informasi Terbaru
+                        </div>
+                        <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl">
+                            Semua informasi kini bisa diakses dari landing page
+                        </h2>
+                        <p className="mt-3 max-w-3xl text-sm leading-7 text-[#111827]/70">
+                            Anda tidak perlu login untuk melihat update artikel dan video terbaru Tarung Derajat.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="mt-6 grid gap-5 xl:grid-cols-2">
+                    <div className="rounded-[32px] border border-white/80 bg-white/92 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.06)] lg:p-6">
+                        <div className="flex items-center justify-between gap-3">
+                            <h3 className="text-xl font-bold text-[#111827]">Artikel Terbaru</h3>
+                            <a href={homeInformationUrl} className="hidden rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/70 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8] sm:inline-flex">
+                                Semua Informasi
+                            </a>
+                        </div>
+
+                        <div className="mt-5 grid gap-4">
+                            {latestArticles.length > 0 ? (
+                                latestArticles.map((article) => (
+                                    <article key={article.id} className="flex flex-col overflow-hidden rounded-2xl border border-[#111827]/10 bg-white shadow-sm transition hover:border-[#1d4ed8]/25">
+                                        <div className="relative h-40 w-full shrink-0 bg-[#e5e7eb] sm:h-52">
+                                            {article.image_path ? (
+                                                <img
+                                                    src={`/storage/${article.image_path}`}
+                                                    alt={article.title}
+                                                    className="h-full w-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#e0ecff,#f8fbff)] text-[11px] font-semibold uppercase tracking-[0.2em] text-[#111827]/45">
+                                                    Preview
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex flex-1 flex-col px-5 py-5">
+                                            <div className="flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-[#111827]/55">
+                                                <span className="rounded-full bg-[#eff6ff] px-2 py-1 text-[#1d4ed8]">{article.author?.name ?? 'Admin'}</span>
+                                                <span>{formatDate(article.created_at)}</span>
+                                            </div>
+                                            <h4 className="mt-3 text-lg font-bold text-[#111827]">{article.title}</h4>
+                                            <p className="mt-2 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-6 text-[#111827]/70">
+                                                {article.content}
+                                            </p>
+                                            <div className="mt-auto pt-5">
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        openPreview({
+                                                            title: article.title,
+                                                            contentText: article.content,
+                                                            meta: `Artikel • ${article.author?.name ?? 'Admin'}`,
+                                                        })
+                                                    }
+                                                    className="inline-flex rounded-full border border-[#111827]/10 bg-white px-5 py-2.5 text-xs font-bold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                                >
+                                                    Baca
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </article>
+                                ))
+                            ) : (
+                                <div className="rounded-2xl border border-[#111827]/10 px-4 py-4 text-sm text-[#111827]/65">
+                                    Belum ada artikel yang dipublikasikan.
+                                </div>
+                            )}
+                        </div>
+
+                        <a href={homeInformationUrl} className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/70 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8] sm:hidden">
+                            Semua Informasi
+                        </a>
+                    </div>
+
+                    <div className="rounded-[32px] border border-white/80 bg-white/92 p-5 shadow-[0_18px_70px_rgba(15,23,42,0.06)] lg:p-6">
+                        <div className="flex items-center justify-between gap-3">
+                            <h3 className="text-xl font-bold text-[#111827]">Video Terbaru</h3>
+                            <a href={homeInformationUrl} className="hidden rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/70 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8] sm:inline-flex">
+                                Semua Informasi
+                            </a>
+                        </div>
+
+                        <div className="mt-5 grid gap-4">
+                            {latestVideos.length > 0 ? (
+                                latestVideos.map((video) => (
+                                    <article key={video.id} className="overflow-hidden rounded-2xl border border-[#111827]/10 bg-white shadow-sm transition hover:border-[#1d4ed8]/25">
+                                        <a href={video.youtube_url} target="_blank" rel="noreferrer" className="block">
+                                            <div className="relative h-36 bg-[#0f172a] sm:h-40">
+                                                {video.thumbnail_url ? (
+                                                    <img
+                                                        src={video.thumbnail_url}
+                                                        alt={video.title}
+                                                        className="h-full w-full object-cover"
+                                                    />
+                                                ) : null}
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                                                <div className="absolute bottom-3 left-3 inline-flex items-center rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#111827]">
+                                                    Tonton
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div className="px-4 py-4">
+                                            <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.2em] text-[#111827]/55">
+                                                <span className="rounded-full bg-[#eff6ff] px-2 py-1 text-[#1d4ed8]">{video.uploader?.name ?? 'Pelatih'}</span>
+                                                <span>{formatDate(video.published_at)}</span>
+                                            </div>
+                                            <h4 className="mt-2 text-base font-semibold text-[#111827]">{video.title}</h4>
+                                            <p className="mt-2 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-6 text-[#111827]/70">
+                                                {video.description || 'Materi teknik terbaru tersedia untuk ditonton publik.'}
+                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    openPreview({
+                                                        title: video.title,
+                                                        contentText: video.description || 'Materi teknik terbaru tersedia untuk ditonton publik.',
+                                                        meta: `Video • ${video.uploader?.name ?? 'Pelatih'}`,
+                                                        ctaUrl: video.youtube_url,
+                                                        ctaLabel: 'Tonton Video',
+                                                    })
+                                                }
+                                                className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                            >
+                                                Tonton
+                                            </button>
+                                        </div>
+                                    </article>
+                                ))
+                            ) : (
+                                <div className="rounded-2xl border border-[#111827]/10 px-4 py-4 text-sm text-[#111827]/65">
+                                    Belum ada video publik.
+                                </div>
+                            )}
+                        </div>
+
+                        <a href={homeInformationUrl} className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/70 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8] sm:hidden">
+                            Semua Informasi
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <Modal show={Boolean(activePreview)} onClose={closePreview} maxWidth="2xl">
+                {activePreview ? (
+                    <div className="p-6 sm:p-7">
+                        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/55">
+                            {activePreview.meta || 'Detail Konten'}
+                        </div>
+                        <h3 className="mt-2 text-2xl font-bold text-[#111827]">{activePreview.title}</h3>
+                        <div className="mt-4 max-h-[65vh] overflow-y-auto overflow-x-hidden rounded-2xl border border-[#111827]/10 bg-[#f8fbff] px-4 py-4 text-base leading-8 text-[#111827]/82">
+                            <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
+                                {String(activePreview.contentText ?? '')}
+                            </p>
+                        </div>
+
+                        <div className="mt-6 flex flex-wrap justify-end gap-2">
+                            {activePreview.ctaUrl ? (
+                                <a
+                                    href={activePreview.ctaUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="tarung-button-primary"
+                                >
+                                    {activePreview.ctaLabel || 'Lihat'}
+                                </a>
+                            ) : null}
+                            <button type="button" onClick={closePreview} className="tarung-button-secondary">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                ) : null}
+            </Modal>
         </PublicLayout>
     );
 }

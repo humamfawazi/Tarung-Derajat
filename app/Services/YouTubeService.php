@@ -13,15 +13,18 @@ use RuntimeException;
 class YouTubeService
 {
     private Client $client;
+    private YouTubeTokenStore $tokenStore;
 
-    public function __construct()
+    public function __construct(YouTubeTokenStore $tokenStore)
     {
+        $this->tokenStore = $tokenStore;
+
         $clientId = (string) config('services.youtube.client_id');
         $clientSecret = (string) config('services.youtube.client_secret');
-        $refreshToken = (string) config('services.youtube.refresh_token');
+        $refreshToken = $tokenStore->getRefreshToken();
 
         if ($clientId === '' || $clientSecret === '' || $refreshToken === '') {
-            throw new RuntimeException('YouTube OAuth belum lengkap. Isi YOUTUBE_CLIENT_ID, YOUTUBE_CLIENT_SECRET, dan YOUTUBE_REFRESH_TOKEN.');
+            throw new RuntimeException('YouTube OAuth belum connect. Klik tombol Connect YouTube di Dashboard Admin.');
         }
 
         $this->client = new Client();
@@ -33,7 +36,16 @@ class YouTubeService
         $token = $this->client->fetchAccessTokenWithRefreshToken($refreshToken);
 
         if (isset($token['error'])) {
-            throw new RuntimeException('Gagal refresh access token YouTube: '.$token['error']);
+            if (($token['error'] ?? '') === 'invalid_grant') {
+                // Stored refresh token is no longer valid in Google; require reconnect.
+                $this->tokenStore->clearRefreshToken();
+
+                throw new RuntimeException('Refresh token YouTube tidak valid. Silakan reconnect YouTube di Dashboard Admin.');
+            }
+
+            $description = isset($token['error_description']) ? ' ('.$token['error_description'].')' : '';
+
+            throw new RuntimeException('Gagal refresh access token YouTube: '.$token['error'].$description);
         }
 
         $this->client->setAccessToken($token);

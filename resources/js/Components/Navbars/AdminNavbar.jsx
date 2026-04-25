@@ -16,24 +16,24 @@ export default function AdminNavbar() {
             active: route().current('dashboard'),
         },
         {
-            label: 'Video',
-            href: route('admin.videos.index'),
-            active: route().current('admin.videos.index') || route().current('admin.videos.edit'),
-        },
-        {
-            label: 'Artikel',
-            href: route('admin.articles.index'),
-            active: route().current('admin.articles.index') || route().current('admin.articles.edit'),
-        },
-        {
             label: 'User',
             href: route('admin.users.index'),
             active: route().current('admin.users.index') || route().current('admin.users.edit'),
         },
         {
-            label: 'Landing Page',
-            href: route('admin.landing.index'),
-            active: route().current('admin.landing.index') || route().current('admin.landing.edit'),
+            label: 'Konten User',
+            href: route('admin.content.index'),
+            active:
+                route().current('admin.content.index') ||
+                route().current('admin.articles.index') ||
+                route().current('admin.articles.create') ||
+                route().current('admin.articles.edit') ||
+                route().current('admin.videos.index') ||
+                route().current('admin.videos.edit') ||
+                route().current('admin.landing.index') ||
+                route().current('admin.landing.create') ||
+                route().current('admin.landing.edit') ||
+                route().current('admin.display-settings.edit'),
         },
     ];
 

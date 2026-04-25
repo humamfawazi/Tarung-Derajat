@@ -4,24 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ArticleController extends Controller
 {
-    public function index(): Response
+    public function index(): RedirectResponse
     {
-        $articles = Article::query()
-            ->with('author:id,name')
-            ->latest('id')
-            ->get();
-
-        return Inertia::render('Articles/Index', [
-            'articles' => $articles,
-        ]);
+        return redirect()->route('content.index');
     }
 
     public function manageIndex(): Response
@@ -36,14 +29,14 @@ class ArticleController extends Controller
         ]);
     }
 
-    public function create(): Response
+    public function create(): RedirectResponse
     {
-        return Inertia::render('Articles/Upload');
+        return redirect()->route('content.create', ['type' => 'article']);
     }
 
-    public function adminCreate(): Response
+    public function adminCreate(): RedirectResponse
     {
-        return Inertia::render('Admin/Articles/Create');
+        return redirect()->route('content.create', ['type' => 'article']);
     }
 
     public function edit(Article $article): Response

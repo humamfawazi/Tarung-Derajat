@@ -9,6 +9,8 @@ export default function VideosUpload() {
         title: '',
         description: '',
         visibility: 'unlisted',
+        video_source: 'upload',
+        youtube_url: '',
         video: null,
     });
 
@@ -18,7 +20,7 @@ export default function VideosUpload() {
         post(route('videos.store'), {
             forceFormData: true,
             onSuccess: () => {
-                reset('title', 'description', 'visibility', 'video');
+                reset('title', 'description', 'visibility', 'video', 'youtube_url');
             },
         });
     };
@@ -62,6 +64,37 @@ export default function VideosUpload() {
                     </div>
 
                     <div>
+                        <label className="text-sm font-semibold text-[#111827]">Sumber Video</label>
+                        <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setData('video_source', 'upload');
+                                    setData('youtube_url', '');
+                                }}
+                                className={data.video_source === 'upload'
+                                    ? 'rounded-2xl border border-[#1d4ed8] bg-[#eff6ff] px-4 py-3 text-left text-sm font-semibold text-[#1d4ed8]'
+                                    : 'rounded-2xl border border-[#111827]/15 bg-white px-4 py-3 text-left text-sm text-[#111827]/75'}
+                            >
+                                Upload file ke YouTube
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setData('video_source', 'link');
+                                    setData('video', null);
+                                }}
+                                className={data.video_source === 'link'
+                                    ? 'rounded-2xl border border-[#1d4ed8] bg-[#eff6ff] px-4 py-3 text-left text-sm font-semibold text-[#1d4ed8]'
+                                    : 'rounded-2xl border border-[#111827]/15 bg-white px-4 py-3 text-left text-sm text-[#111827]/75'}
+                            >
+                                Input link YouTube
+                            </button>
+                        </div>
+                        {errors.video_source && <p className="mt-2 text-sm text-red-600">{errors.video_source}</p>}
+                    </div>
+
+                    <div>
                         <label className="text-sm font-semibold text-[#111827]">Visibilitas YouTube</label>
                         <select
                             value={data.visibility}
@@ -75,18 +108,34 @@ export default function VideosUpload() {
                         {errors.visibility && <p className="mt-2 text-sm text-red-600">{errors.visibility}</p>}
                     </div>
 
-                    <div>
-                        <label className="text-sm font-semibold text-[#111827]">File Video</label>
-                        <input
-                            type="file"
-                            accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm"
-                            onChange={(e) => setData('video', e.target.files[0] ?? null)}
-                            className="mt-2 block w-full text-sm text-[#111827] file:mr-4 file:rounded-full file:border-0 file:bg-[#1d4ed8] file:px-4 file:py-2 file:font-semibold file:text-white hover:file:opacity-90"
-                            required
-                        />
-                        <p className="mt-2 text-xs text-[#111827]/60">Maksimal 500MB. Format: mp4, mov, avi, mkv, webm.</p>
-                        {errors.video && <p className="mt-2 text-sm text-red-600">{errors.video}</p>}
-                    </div>
+                    {data.video_source === 'upload' ? (
+                        <div>
+                            <label className="text-sm font-semibold text-[#111827]">File Video</label>
+                            <input
+                                type="file"
+                                accept="video/mp4,video/quicktime,video/x-msvideo,video/x-matroska,video/webm"
+                                onChange={(e) => setData('video', e.target.files[0] ?? null)}
+                                className="mt-2 block w-full text-sm text-[#111827] file:mr-4 file:rounded-full file:border-0 file:bg-[#1d4ed8] file:px-4 file:py-2 file:font-semibold file:text-white hover:file:opacity-90"
+                                required
+                            />
+                            <p className="mt-2 text-xs text-[#111827]/60">Maksimal 500MB. Format: mp4, mov, avi, mkv, webm.</p>
+                            {errors.video && <p className="mt-2 text-sm text-red-600">{errors.video}</p>}
+                        </div>
+                    ) : (
+                        <div>
+                            <label className="text-sm font-semibold text-[#111827]">Link YouTube</label>
+                            <input
+                                type="url"
+                                value={data.youtube_url}
+                                onChange={(e) => setData('youtube_url', e.target.value)}
+                                className="mt-2 w-full rounded-2xl border border-[#1d4ed8]/15 px-4 py-3 text-sm focus:border-[#1d4ed8] focus:outline-none"
+                                placeholder="https://www.youtube.com/watch?v=..."
+                                required
+                            />
+                            <p className="mt-2 text-xs text-[#111827]/60">Format yang didukung: youtube.com dan youtu.be.</p>
+                            {errors.youtube_url && <p className="mt-2 text-sm text-red-600">{errors.youtube_url}</p>}
+                        </div>
+                    )}
 
                     <div className="flex flex-wrap gap-2">
                         <button type="submit" disabled={processing} className="tarung-button-primary disabled:opacity-60">

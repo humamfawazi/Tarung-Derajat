@@ -14,6 +14,7 @@ class LandingSection extends Model
         'section_key',
         'title',
         'content',
+        'image_path',
         'is_active',
         'sort_order',
     ];

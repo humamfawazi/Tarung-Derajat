@@ -42,8 +42,13 @@ return new class extends Migration
         }
 
         // 3. Drop the redundant tables
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('model_has_roles');
+        Schema::dropIfExists('model_has_permissions');
+        Schema::dropIfExists('role_has_permissions');
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('permissions');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

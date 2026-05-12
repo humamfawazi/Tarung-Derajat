@@ -8,58 +8,62 @@ import { useState } from 'react';
 export default function AdminNavbar() {
     const user = usePage().props.auth.user;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
-
-    const adminMenus = [
-        {
-            label: 'Dashboard',
-            href: route('dashboard'),
-            active: route().current('dashboard'),
-        },
-        {
-            label: 'User',
-            href: route('admin.users.index'),
-            active: route().current('admin.users.index') || route().current('admin.users.edit'),
-        },
-        {
-            label: 'Konten User',
-            href: route('admin.content.index'),
-            active:
-                route().current('admin.content.index') ||
-                route().current('admin.articles.index') ||
-                route().current('admin.articles.create') ||
-                route().current('admin.articles.edit') ||
-                route().current('admin.videos.index') ||
-                route().current('admin.videos.edit') ||
-                route().current('admin.landing.index') ||
-                route().current('admin.landing.create') ||
-                route().current('admin.landing.edit') ||
-                route().current('admin.display-settings.edit'),
-        },
-    ];
+    const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
     return (
         <nav className="sticky top-0 z-40 border-b border-white/70 bg-white/72 text-[#111827] backdrop-blur-xl">
             <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
                 <div className="flex min-h-[4.75rem] items-center justify-between rounded-full border border-white/80 bg-white/88 px-4 py-3 shadow-[0_18px_60px_rgba(59,130,246,0.08)] sm:px-6">
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4 sm:gap-6">
                         <Link href={route('home')} className="flex items-center gap-3">
                             <ApplicationLogo className="block h-9 w-9 fill-current text-[#1d4ed8]" />
                             <div>
                                 <div className="text-sm font-semibold uppercase tracking-[0.3em] text-[#111827]/55">
-                                    Tarung Web
+                                    Tarung Derajat
                                 </div>
                                 <div className="hidden text-sm font-medium text-[#111827] sm:block">
-                                    Admin Management
+                                    Platform Digital
                                 </div>
                             </div>
                         </Link>
 
-                        <div className="hidden items-center gap-7 lg:flex">
-                            {adminMenus.map((menu) => (
-                                <NavLink key={menu.label} href={menu.href} active={menu.active}>
-                                    {menu.label}
-                                </NavLink>
-                            ))}
+                        <div className="hidden items-center gap-6 lg:flex">
+                            <Link
+                                href={route('home')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('home') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                href={route('dashboard')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('dashboard') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Overview
+                            </Link>
+                            <Link
+                                href={route('admin.articles.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.articles.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Artikel
+                            </Link>
+                            <Link
+                                href={route('admin.videos.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.videos.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Video
+                            </Link>
+                            <Link
+                                href={route('admin.members.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.members.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Anggota
+                            </Link>
+                            <Link
+                                href={route('admin.landing.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.landing.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Halaman Statis
+                            </Link>
                         </div>
                     </div>
 
@@ -91,6 +95,9 @@ export default function AdminNavbar() {
                                 </Dropdown.Trigger>
 
                                 <Dropdown.Content>
+                                    <Dropdown.Link href={route('dashboard')}>
+                                        Dashboard
+                                    </Dropdown.Link>
                                     <Dropdown.Link href={route('profile.edit')}>
                                         Profile
                                     </Dropdown.Link>
@@ -158,11 +165,44 @@ export default function AdminNavbar() {
                 <div className="mx-auto max-w-7xl px-4 pb-4 sm:px-6">
                     <div className="overflow-hidden rounded-[28px] border border-[#1d4ed8]/10 bg-white/95 shadow-[0_18px_50px_rgba(15,23,42,0.1)]">
                         <div className="space-y-1 pb-3 pt-2">
-                            {adminMenus.map((menu) => (
-                                <ResponsiveNavLink key={menu.label} href={menu.href} active={menu.active}>
-                                    {menu.label}
-                                </ResponsiveNavLink>
-                            ))}
+                            <ResponsiveNavLink
+                                href={route('public.informasi')}
+                                active={route().current('public.informasi')}
+                            >
+                                Informasi
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('public.edukasi')}
+                                active={route().current('public.edukasi')}
+                            >
+                                Edukasi
+                            </ResponsiveNavLink>
+                            <div className="px-4 py-2">
+                                <button
+                                    onClick={() => setShowAboutDropdown(!showAboutDropdown)}
+                                    className="text-left text-sm font-medium text-[#111827]/65 w-full"
+                                >
+                                    Tentang Kami
+                                </button>
+                                {showAboutDropdown && (
+                                    <div className="mt-2 space-y-1 pl-4">
+                                        <ResponsiveNavLink href={route('public.tentang-kami.sejarah')}>
+                                            Sejarah
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink href={route('public.tentang-kami.filosofi')}>
+                                            Filosofi
+                                        </ResponsiveNavLink>
+                                        <ResponsiveNavLink href={route('public.tentang-kami.daftar-pengurus')}>
+                                            Daftar Pengurus & Atlet
+                                        </ResponsiveNavLink>
+                                    </div>
+                                )}
+                            </div>
+                            <ResponsiveNavLink
+                                href={route('dashboard')}
+                            >
+                                Admin
+                            </ResponsiveNavLink>
                         </div>
 
                         <div className="border-t border-[#1d4ed8]/10 pb-1 pt-4">

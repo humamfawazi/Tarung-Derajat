@@ -29,8 +29,8 @@ const copy = {
             { value: '02', label: 'Praktis' },
             { value: '03', label: 'Internasional' },
         ],
-        featuresTitle: 'Manfaat utama pengembangan website',
-        featuresHeading: 'Kontribusi teoretis dan praktis dalam satu platform',
+        featuresTitle: 'Highlight',
+        featuresHeading: 'Artikel Terbaru, Video, dan Kompetisi & Event',
         features: [
             {
                 title: 'Manfaat Teoretis',
@@ -87,8 +87,8 @@ const copy = {
             { value: '02', label: 'Practical' },
             { value: '03', label: 'International' },
         ],
-        featuresTitle: 'Core value of this website development',
-        featuresHeading: 'Theoretical and practical contributions in one platform',
+        featuresTitle: 'Highlight',
+        featuresHeading: 'Latest Articles, Videos, and Competitions & Events',
         features: [
             {
                 title: 'Theoretical Contribution',
@@ -176,7 +176,46 @@ export default function Home({
     const { locale } = usePage().props;
     const currentLocale = locale?.current === 'en' ? 'en' : 'id';
     const content = copy[currentLocale];
-    const features = landingSections.length > 0
+    
+    const stripHtml = (html) => html?.replace(/<[^>]+>/g, '') ?? '';
+    
+    // Combine articles, videos, and education sections into one highlight list
+    const highlights = [
+        ...latestArticles.map(a => ({
+            id: `article-${a.id}`,
+            type: 'article',
+            title: a.title,
+            text: stripHtml(a.content),
+            imagePath: a.image_path,
+            url: route('public.informasi.article', a.id),
+            dateObj: new Date(a.published_at ?? a.created_at),
+        })),
+        ...latestVideos.map(v => ({
+            id: `video-${v.id}`,
+            type: 'video',
+            title: v.title,
+            text: v.description,
+            videoId: v.youtube_video_id,
+            url: route('videos.show', v.id),
+            dateObj: new Date(v.published_at ?? v.created_at),
+        })),
+        ...educationSections.map(e => ({
+            id: `education-${e.id}`,
+            type: 'education',
+            title: e.title,
+            text: e.content,
+            imagePath: e.image_path,
+            url: route('public.kompetisi-event'),
+            dateObj: new Date(e.updated_at ?? e.created_at),
+        }))
+    ].sort((a, b) => b.dateObj - a.dateObj).map(item => ({
+        ...item,
+        date: item.dateObj.toLocaleDateString(currentLocale === 'en' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+    }));
+    
+    const features = highlights.length > 0
+        ? highlights.slice(0, 3)
+        : landingSections.length > 0
         ? landingSections.map((item) => ({
             title: item.title,
             text: item.content,
@@ -357,40 +396,75 @@ export default function Home({
                     </div>
                 </div>
 
-                <div className="mt-6 grid gap-4">
-                    {features.map((feature) => (
-                        <article key={feature.title} className="rounded-[30px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)]">
-                            {feature.imagePath ? (
+                <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {features.map((feature, idx) => (
+                        <article key={feature.id || feature.title || idx} className="flex flex-col overflow-hidden rounded-[30px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)]">
+                            {feature.type === 'video' && feature.videoId ? (
+                                <div className="mb-4 overflow-hidden rounded-2xl border border-[#111827]/10 bg-white">
+                                    <img
+                                        src={`https://img.youtube.com/vi/${feature.videoId}/maxresdefault.jpg`}
+                                        alt={feature.title}
+                                        className="aspect-video w-full object-cover"
+                                        onError={(e) => { e.currentTarget.src = `https://img.youtube.com/vi/${feature.videoId}/hqdefault.jpg`; }}
+                                    />
+                                </div>
+                            ) : feature.imagePath ? (
                                 <div className="mb-4 overflow-hidden rounded-2xl border border-[#111827]/10 bg-white">
                                     <img
                                         src={`/storage/${feature.imagePath}`}
                                         alt={feature.title}
-                                        className="aspect-[4/3] w-full object-cover"
+                                        className="aspect-video w-full object-cover"
                                     />
                                 </div>
-                            ) : null}
-                            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#eff6ff] text-lg font-bold text-[#1d4ed8]">
-                                •
+                            ) : (
+                                <div className="mb-4 overflow-hidden rounded-2xl border border-[#111827]/10 bg-[#eff6ff] flex aspect-video items-center justify-center">
+                                    <span className="text-[#1d4ed8]/30 font-bold text-4xl">TD</span>
+                                </div>
+                            )}
+                            
+                            <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#111827]/50">
+                                <span>
+                                    {feature.type === 'video' ? (currentLocale === 'en' ? 'Video' : 'Video') : feature.type === 'education' ? (currentLocale === 'en' ? 'Competition & Event' : 'Kompetisi & Event') : (currentLocale === 'en' ? 'Article' : 'Artikel')}
+                                </span>
+                                {feature.date && (
+                                    <>
+                                        <span>•</span>
+                                        <span>{feature.date}</span>
+                                    </>
+                                )}
                             </div>
-                            <h3 className="mt-5 text-xl font-bold text-[#111827]">
+
+                            <h3 className="text-lg font-bold text-[#111827] line-clamp-2">
                                 {feature.title}
                             </h3>
-                            <p className="mt-3 line-clamp-2 break-words [overflow-wrap:anywhere] text-sm leading-7 text-[#111827]/68">
+                            <p className="mt-3 flex-1 line-clamp-3 break-words text-sm leading-6 text-[#111827]/68">
                                 {feature.text}
                             </p>
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    openPreview({
-                                        title: feature.title,
-                                        contentText: feature.text,
-                                        meta: 'Feature',
-                                    })
-                                }
-                                className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
-                            >
-                                Baca
-                            </button>
+                            
+                            <div className="mt-5">
+                                {feature.url ? (
+                                    <Link
+                                        href={feature.url}
+                                        className="inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                    >
+                                        {currentLocale === 'en' ? 'Read More' : 'Baca Selengkapnya'}
+                                    </Link>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            openPreview({
+                                                title: feature.title,
+                                                contentText: feature.text,
+                                                meta: 'Feature',
+                                            })
+                                        }
+                                        className="inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
+                                    >
+                                        {currentLocale === 'en' ? 'Read' : 'Baca'}
+                                    </button>
+                                )}
+                            </div>
                         </article>
                     ))}
                 </div>

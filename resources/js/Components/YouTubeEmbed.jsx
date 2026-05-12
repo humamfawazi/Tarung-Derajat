@@ -9,7 +9,7 @@ export default function YouTubeEmbed({ url, title }) {
                     width="100%"
                     height="100%"
                     controls
-                    light={false}
+                    light={true}
                     config={{
                         youtube: {
                             playerVars: {

@@ -8,7 +8,7 @@ const sectionTypeDescriptions = {
     feature: 'Highlight utama yang tampil di landing user.',
     history: 'Cerita latar belakang yang tampil di landing dan dashboard user.',
     philosophy: 'Nilai atau filosofi yang tampil di landing dan dashboard user.',
-    education: 'Konten edukasi yang tampil di landing dan dashboard user.',
+    education: 'Konten kompetisi dan event yang tampil di landing dan dashboard user.',
 };
 
 export default function AdminLandingCreate({ sectionTypes = [], sortOrderHints = {} }) {
@@ -38,7 +38,7 @@ export default function AdminLandingCreate({ sectionTypes = [], sortOrderHints =
               { value: 'feature', label: 'Feature / Highlight' },
               { value: 'history', label: 'History' },
               { value: 'philosophy', label: 'Philosophy' },
-              { value: 'education', label: 'Education' },
+              { value: 'education', label: 'Kompetisi & Event' },
           ];
 
     const currentSectionType = data.section_key.split('_')[0] || 'feature';
@@ -192,7 +192,7 @@ export default function AdminLandingCreate({ sectionTypes = [], sortOrderHints =
                     <div className="rounded-2xl border border-[#111827]/10 bg-white px-4 py-3 text-sm text-[#111827]/72">
                         <div className="font-semibold text-[#111827]">Dampak Tampilan</div>
                         <p className="mt-1">{impactText}</p>
-                        <p className="mt-1">Untuk type history/philosophy/education, jumlah tampil mengikuti Pengaturan Jumlah Tampil.</p>
+                        <p className="mt-1">Untuk type history/philosophy/kompetisi & event, jumlah tampil mengikuti Pengaturan Jumlah Tampil.</p>
                     </div>
 
                     <div className="flex flex-wrap gap-2">

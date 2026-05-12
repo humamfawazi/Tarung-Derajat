@@ -11,10 +11,9 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
     });
 
     const sectionTypes = [
-        { value: 'feature', label: 'Feature' },
-        { value: 'history', label: 'History' },
-        { value: 'philosophy', label: 'Philosophy' },
-        { value: 'education', label: 'Education' },
+        { value: 'feature', label: 'Home Page' },
+        { value: 'history', label: 'Sejarah & Filosofi' },
+        { value: 'education', label: 'Kompetisi & Event' },
     ];
 
     const handleDelete = (id) => {
@@ -53,30 +52,26 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="tarung-section-label">Admin Management</div>
-                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Pusat Konten User</h2>
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Pengaturan Halaman Statis</h2>
                         <p className="mt-2 max-w-2xl text-sm text-[#111827]/65">
-                            Kelola semua konten landing untuk user dari satu tempat. Perubahan di sini akan memengaruhi
-                            tampilan Home user dan sebagian section informasi di dashboard user.
+                            Kelola konten untuk halaman Home, Sejarah, Filosofi, serta Kompetisi & Event.
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        <Link href={route('admin.content.index')} className="tarung-button-secondary w-fit">
-                            Pusat Konten User
-                        </Link>
-                        <Link href={route('admin.display-settings.edit')} className="tarung-button-secondary w-fit">
+                        <Link href={route('admin.display-settings.edit')} className="tarung-button-secondary w-fit whitespace-nowrap">
                             Atur Jumlah Tampil
                         </Link>
-                        <Link href={route('home')} className="tarung-button-secondary w-fit">
+                        <Link href={route('home')} className="tarung-button-secondary w-fit whitespace-nowrap">
                             Lihat Halaman User
                         </Link>
-                        <Link href={route('admin.landing.create')} className="tarung-button-primary w-fit">
-                            Tambah Konten User
+                        <Link href={route('admin.landing.create')} className="tarung-button-primary w-fit whitespace-nowrap">
+                            Tambah Konten Baru
                         </Link>
                     </div>
                 </div>
             }
         >
-            <Head title="Pusat Konten User" />
+            <Head title="Pengaturan Halaman" />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {!databaseReady && (
@@ -138,7 +133,7 @@ export default function AdminLandingIndex({ sections, databaseReady }) {
                         <div className="text-sm font-semibold text-[#111827]">Aturan Tampil</div>
                         <ul className="mt-3 space-y-2 text-sm text-[#111827]/72">
                             <li>Feature: tampil di landing user.</li>
-                            <li>History, Philosophy, Education: tampil di landing dan dashboard user.</li>
+                            <li>History, Philosophy, Kompetisi & Event: tampil di landing dan dashboard user.</li>
                             <li>Jumlah tampil diatur dari menu Atur Jumlah Tampil.</li>
                         </ul>
                     </div>

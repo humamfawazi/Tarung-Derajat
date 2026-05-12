@@ -56,7 +56,7 @@ export default function VideosDetail({ video }) {
             <AuthenticatedLayout
                 header={
                     <div>
-                        <div className="tarung-section-label">Education</div>
+                        <div className="tarung-section-label">Kompetisi & Event</div>
                         <h2 className="mt-2 text-2xl font-bold text-[#111827]">Video Detail</h2>
                     </div>
                 }

@@ -77,7 +77,7 @@ export default function AdminDisplaySettingsEdit({ settings, databaseReady }) {
                     {numericField('videos_user_limit', 'Limit Video', 'Jumlah video yang tampil untuk user.')}
                     {numericField('history_user_limit', 'Limit History', 'Jumlah item history yang tampil di landing dan dashboard user.')}
                     {numericField('philosophy_user_limit', 'Limit Philosophy', 'Jumlah item philosophy yang tampil di landing dan dashboard user.')}
-                    {numericField('education_user_limit', 'Limit Education', 'Jumlah item education yang tampil di landing dan dashboard user.')}
+                    {numericField('education_user_limit', 'Limit Kompetisi & Event', 'Jumlah item kompetisi dan event yang tampil di landing dan dashboard user.')}
 
                     <div className="rounded-2xl border border-[#111827]/10 bg-white px-4 py-3 text-sm text-[#111827]/72">
                         Section type feature tidak memakai limit ini dan tetap dikendalikan langsung dari status aktif kontennya.

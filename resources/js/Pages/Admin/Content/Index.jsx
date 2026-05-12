@@ -112,7 +112,7 @@ export default function AdminContentIndex({ sections, articles, videos, displayL
                         <div className="font-semibold text-[#111827]">Aturan Tampil</div>
                         <div className="mt-2">History: {displayLimits.history_user_limit}</div>
                         <div>Philosophy: {displayLimits.philosophy_user_limit}</div>
-                        <div>Education: {displayLimits.education_user_limit}</div>
+                        <div>Kompetisi & Event: {displayLimits.education_user_limit}</div>
                     </div>
                 </div>
 

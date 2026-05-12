@@ -78,7 +78,7 @@ class AdminLandingController extends Controller
                 ['value' => 'feature', 'label' => 'Feature / Highlight'],
                 ['value' => 'history', 'label' => 'History'],
                 ['value' => 'philosophy', 'label' => 'Philosophy'],
-                ['value' => 'education', 'label' => 'Education'],
+                ['value' => 'education', 'label' => 'Kompetisi & Event'],
             ],
         ]);
     }

@@ -8,12 +8,14 @@ use App\Http\Controllers\AdminYouTubeController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminLandingController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MemberController;
 use App\Services\YouTubeTokenStore;
 use App\Models\Article;
 use App\Models\DisplaySetting;
 use App\Models\LandingSection;
 use App\Models\Video;
 use App\Models\User;
+use App\Models\Member;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -36,6 +38,7 @@ $buildHomeProps = function (string $locale): array {
     }
 
     $articleLimit = max(1, (int) ($displayLimits['articles_user_limit'] ?? DisplaySetting::DEFAULTS['articles_user_limit']));
+    $homeArticleLimit = min(2, $articleLimit);
     $videoLimit = max(1, (int) ($displayLimits['videos_user_limit'] ?? DisplaySetting::DEFAULTS['videos_user_limit']));
     $historyLimit = max(1, (int) ($displayLimits['history_user_limit'] ?? DisplaySetting::DEFAULTS['history_user_limit']));
     $philosophyLimit = max(1, (int) ($displayLimits['philosophy_user_limit'] ?? DisplaySetting::DEFAULTS['philosophy_user_limit']));
@@ -80,7 +83,7 @@ $buildHomeProps = function (string $locale): array {
             ->orderBy('sort_order')
             ->orderBy('id')
             ->limit($educationLimit)
-            ->get(['id', 'title', 'content', 'image_path']);
+            ->get(['id', 'title', 'content', 'image_path', 'created_at', 'updated_at']);
     }
 
     $latestArticles = collect();
@@ -88,8 +91,8 @@ $buildHomeProps = function (string $locale): array {
         $latestArticles = Article::query()
             ->with('author:id,name')
             ->latest('id')
-            ->limit($articleLimit)
-            ->get(['id', 'user_id', 'title', 'content', 'image_path', 'created_at']);
+            ->limit($homeArticleLimit)
+            ->get(['id', 'user_id', 'title', 'content', 'image_path', 'created_at', 'updated_at']);
     }
 
     $latestVideos = collect();
@@ -100,7 +103,7 @@ $buildHomeProps = function (string $locale): array {
             ->latest('published_at')
             ->latest('id')
             ->limit($videoLimit)
-            ->get(['id', 'uploader_id', 'title', 'description', 'youtube_url', 'thumbnail_url', 'published_at']);
+            ->get(['id', 'uploader_id', 'title', 'description', 'youtube_video_id', 'youtube_url', 'thumbnail_url', 'created_at', 'published_at']);
     }
 
     return [
@@ -124,6 +127,108 @@ Route::get('/id', function () use ($buildHomeProps) {
 Route::get('/en', function () use ($buildHomeProps) {
     return Inertia::render('Public/Home', $buildHomeProps('en'));
 })->name('home.en');
+
+// Public Pages - Informasi
+Route::get('/informasi', function () {
+    $articles = Article::query()
+        ->with('author:id,name')
+        ->latest('created_at')
+        ->get(['id', 'user_id', 'title', 'content', 'image_path', 'created_at']);
+
+    $videos = Video::query()
+        ->with('uploader:id,name')
+        ->where('status', 'published')
+        ->latest('published_at')
+        ->get(['id', 'uploader_id', 'title', 'description', 'youtube_url', 'thumbnail_url', 'published_at']);
+
+    return Inertia::render('Public/Informasi', [
+        'articles' => $articles,
+        'videos' => $videos,
+    ]);
+})->name('public.informasi');
+
+// Public Pages - Baca Artikel
+Route::get('/informasi/artikel/{article}', function (Article $article) {
+    if (!$article->exists) {
+        abort(404);
+    }
+    
+    $article->load('author:id,name');
+    
+    return Inertia::render('Public/ArticleDetail', [
+        'article' => $article,
+    ]);
+})->name('public.informasi.article');
+
+// Public Pages - Kompetisi & Event (Menggunakan data Edukasi dari Landing Sections)
+Route::get('/kompetisi-event', function () {
+    $educationSections = Schema::hasTable('landing_sections')
+        ? LandingSection::query()
+            ->where('locale', app()->getLocale())
+            ->where('is_active', true)
+            ->where('section_key', 'like', 'education_%')
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['id', 'title', 'content', 'image_path'])
+        : collect();
+
+    return Inertia::render('Public/KompetisiEvent', [
+        'educationSections' => $educationSections,
+    ]);
+})->name('public.kompetisi-event');
+
+// Public Pages - Edukasi (Redirect to Kompetisi)
+Route::get('/edukasi', function () {
+    return redirect()->route('public.kompetisi-event');
+})->name('public.edukasi');
+
+// Public Pages - Tentang Kami > Sejarah
+Route::get('/tentang-kami/sejarah', function () {
+    $historySections = Schema::hasTable('landing_sections')
+        ? LandingSection::query()
+            ->where('locale', app()->getLocale())
+            ->where('is_active', true)
+            ->where('section_key', 'like', 'history_%')
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['id', 'title', 'content', 'image_path'])
+        : collect();
+
+    return Inertia::render('Public/TentangKami/Sejarah', [
+        'historySections' => $historySections,
+    ]);
+})->name('public.tentang-kami.sejarah');
+
+// Public Pages - Tentang Kami > Filosofi
+Route::get('/tentang-kami/filosofi', function () {
+    $philosophySections = Schema::hasTable('landing_sections')
+        ? LandingSection::query()
+            ->where('locale', app()->getLocale())
+            ->where('is_active', true)
+            ->where('section_key', 'like', 'philosophy_%')
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['id', 'title', 'content', 'image_path'])
+        : collect();
+
+    return Inertia::render('Public/TentangKami/Filosofi', [
+        'philosophySections' => $philosophySections,
+    ]);
+})->name('public.tentang-kami.filosofi');
+
+// Public Pages - Tentang Kami > Daftar Pengurus & Atlet
+Route::get('/tentang-kami/daftar-pengurus', function () {
+    $members = Schema::hasTable('members')
+        ? Member::where('is_active', true)
+            ->orderBy('member_type')
+            ->orderBy('name')
+            ->get()
+        : collect();
+
+    return Inertia::render('Public/TentangKami/DaftarPengurus', [
+        'members' => $members,
+    ]);
+})->name('public.tentang-kami.daftar-pengurus');
 
 Route::get('/content', [ContentController::class, 'index'])->name('content.index');
 Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
@@ -192,6 +297,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 'featured_articles_count' => Article::query()->where('is_featured', true)->count(),
                 'videos_count' => Video::query()->where('status', 'published')->count(),
                 'users_count' => User::query()->count(),
+                'members_count' => Member::query()->count(),
             ],
             'latestArticles' => $latestArticles,
             'adminInfos' => $adminInfos,
@@ -306,6 +412,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/display-settings', [AdminDisplaySettingController::class, 'edit'])->name('display-settings.edit');
         Route::patch('/display-settings', [AdminDisplaySettingController::class, 'update'])->name('display-settings.update');
+
+        // Members Management
+        Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('/members/create', [MemberController::class, 'create'])->name('members.create');
+        Route::post('/members', [MemberController::class, 'store'])->name('members.store');
+        Route::get('/members/{member}/edit', [MemberController::class, 'edit'])->name('members.edit');
+        Route::patch('/members/{member}', [MemberController::class, 'update'])->name('members.update');
+        Route::delete('/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
     });
 });
 

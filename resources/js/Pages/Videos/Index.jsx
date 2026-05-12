@@ -14,9 +14,9 @@ export default function VideosIndex({ videos }) {
         <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                    <div className="tarung-section-label">Education</div>
+                    <div className="tarung-section-label">Kompetisi & Event</div>
                     <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-[#111827]">
-                        Video Technique Library
+                        Video Library
                     </h1>
                     <p className="mt-3 max-w-2xl text-sm text-[#111827]/70">
                         Materi teknik dari pelatih akan otomatis dipublikasikan ke YouTube lalu ditampilkan di sini.
@@ -48,8 +48,8 @@ export default function VideosIndex({ videos }) {
                 header={
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
-                            <div className="tarung-section-label">Education</div>
-                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Video Technique Library</h2>
+                            <div className="tarung-section-label">Kompetisi & Event</div>
+                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Video Library</h2>
                         </div>
                         {canUpload && (
                             <Link href={route('videos.upload')} className="tarung-button-primary w-fit">

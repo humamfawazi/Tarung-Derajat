@@ -73,5 +73,10 @@ class DatabaseSeeder extends Seeder
                 ],
             ]
         );
+
+        $this->call([
+            ContentSeeder::class,
+            MemberSeeder::class,
+        ]);
     }
 }

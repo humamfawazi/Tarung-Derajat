@@ -23,39 +23,16 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <div className="tarung-section-label">Admin dashboard</div>
-                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Kontrol CRUD Konten</h2>
+                            <h2 className="mt-2 text-2xl font-bold text-[#111827]">Manajemen Konten</h2>
                             <p className="mt-2 max-w-2xl text-sm text-[#111827]/65">
-                                Pusatkan kelola konten lewat Pusat Konten User, lalu gunakan menu lain untuk manajemen user dan jumlah tampil.
+                                Selamat datang kembali! Gunakan menu di bawah atau navigasi atas untuk mengelola situs Tarung Derajat.
                             </p>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {youtubeConnected ? (
-                                <>
-                                    <a
-                                        href={route('admin.youtube.reconnect')}
-                                        className="rounded-full bg-amber-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-amber-700"
-                                    >
-                                        YouTube Connected (Reconnect)
-                                    </a>
-                                    <a
-                                        href={route('admin.youtube.disconnect')}
-                                        className="rounded-full bg-emerald-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-emerald-700"
-                                    >
-                                        Disconnect YouTube
-                                    </a>
-                                </>
-                            ) : (
-                                <a
-                                    href={route('admin.youtube.connect')}
-                                    className="rounded-full bg-red-600 px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-white transition hover:bg-red-700"
-                                >
-                                    YouTube Belum Connected (Connect)
-                                </a>
-                            )}
-                            <Link href={route('content.create')} className="tarung-button-primary">Tambah Konten</Link>
-                            <Link href={route('admin.content.index')} className="tarung-button-secondary">Buka Pusat Konten User</Link>
-                            <Link href={route('admin.display-settings.edit')} className="tarung-button-secondary">Atur Jumlah Tampil</Link>
-                            <Link href={route('admin.users.create')} className="tarung-button-secondary">Tambah User Baru</Link>
+                            <Link href={route('admin.articles.index')} className="tarung-button-primary">Kelola Artikel</Link>
+                            <Link href={route('admin.videos.index')} className="tarung-button-secondary">Kelola Video</Link>
+                            <Link href={route('admin.members.index')} className="tarung-button-secondary">Kelola Anggota</Link>
+                            <Link href={route('admin.landing.index')} className="tarung-button-secondary">Halaman Statis</Link>
                         </div>
                     </div>
                 }
@@ -83,6 +60,11 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                             <div className="text-sm font-medium text-[#111827]/60">Konten User</div>
                             <div className="mt-3 text-3xl font-extrabold tracking-tight">{adminCrud?.landing?.length ?? 0}</div>
                             <div className="mt-2 text-sm text-[#111827]/70">Section landing tersedia</div>
+                        </div>
+                        <div className="tarung-shell rounded-[28px] p-6">
+                            <div className="text-sm font-medium text-[#111827]/60">Pengurus & Atlet</div>
+                            <div className="mt-3 text-3xl font-extrabold tracking-tight">{stats?.members_count ?? 0}</div>
+                            <div className="mt-2 text-sm text-[#111827]/70">Data terdaftar</div>
                         </div>
                     </div>
 

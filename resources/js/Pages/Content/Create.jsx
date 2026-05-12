@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 const contentTypeMeta = {
     landing: {
         title: 'Konten Landing',
-        description: 'Untuk Feature, History, Philosophy, dan Education. Urutan diatur otomatis.',
+        description: 'Untuk Feature, History, Philosophy, dan Kompetisi & Event. Urutan diatur otomatis.',
         button: 'Simpan Landing',
     },
     article: {
@@ -24,7 +24,7 @@ const landingSections = [
     { value: 'feature', label: 'Feature' },
     { value: 'history', label: 'History' },
     { value: 'philosophy', label: 'Philosophy' },
-    { value: 'education', label: 'Education' },
+    { value: 'education', label: 'Kompetisi & Event' },
 ];
 
 const articleVisibilityHelp = 'Artikel tetap sederhana: judul, isi, gambar, dan opsi tampil di dashboard user.';

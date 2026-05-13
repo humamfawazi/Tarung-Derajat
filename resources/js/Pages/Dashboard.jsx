@@ -40,6 +40,37 @@ export default function Dashboard({ stats, latestArticles, adminInfos, adminCrud
                 <Head title="Dashboard Admin" />
 
                 <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+                    <div className="tarung-shell mb-6 flex flex-col gap-4 rounded-[28px] p-5 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <div className="tarung-section-label">YouTube Admin</div>
+                            <div className="mt-2 text-lg font-bold text-[#111827]">
+                                {youtubeConnected ? 'YouTube sudah terhubung' : 'YouTube belum terhubung'}
+                            </div>
+                            <p className="mt-2 max-w-2xl text-sm text-[#111827]/65">
+                                {youtubeConnected
+                                    ? 'Gunakan tombol putuskan sambungan jika ingin mengganti akun atau mengatur ulang akses YouTube.'
+                                    : 'Hubungkan akun YouTube untuk mengaktifkan upload video langsung dari dashboard.'}
+                            </p>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2">
+                            {youtubeConnected ? (
+                                <>
+                                    <Link href={route('admin.youtube.reconnect')} className="tarung-button-secondary">
+                                        Hubungkan Ulang
+                                    </Link>
+                                    <Link href={route('admin.youtube.disconnect')} className="rounded-full border border-red-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-red-600 transition hover:bg-red-50">
+                                        Putuskan YouTube
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link href={route('admin.youtube.connect')} className="tarung-button-primary">
+                                    Hubungkan YouTube
+                                </Link>
+                            )}
+                        </div>
+                    </div>
+
                     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                         <div className="tarung-shell rounded-[28px] p-6">
                             <div className="text-sm font-medium text-[#111827]/60">Total Artikel</div>

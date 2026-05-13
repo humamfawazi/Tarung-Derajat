@@ -29,8 +29,6 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $currentLocale = app()->getLocale();
-
         return [
             ...parent::share($request),
             'auth' => [
@@ -41,19 +39,7 @@ class HandleInertiaRequests extends Middleware
                 'error' => fn () => $request->session()->get('error'),
             ],
             'locale' => [
-                'current' => $currentLocale,
-                'supported' => [
-                    [
-                        'code' => 'id',
-                        'name' => 'Bahasa Indonesia',
-                        'url' => route('home'),
-                    ],
-                    [
-                        'code' => 'en',
-                        'name' => 'English',
-                        'url' => route('home.en'),
-                    ],
-                ],
+                'current' => 'id',
             ],
         ];
     }

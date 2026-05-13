@@ -1,14 +1,11 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import LanguageSwitcher from '@/Components/LanguageSwitcher';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 export default function PublicLayout({ children }) {
-    const { auth, locale } = usePage().props;
+    const { auth } = usePage().props;
 
-    const locales = locale?.supported ?? [];
-    const currentLocale = locale?.current ?? 'id';
-    const homeUrl = currentLocale === 'en' ? route('home.en') : route('home');
+    const homeUrl = route('home');
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [staffMenuOpen, setStaffMenuOpen] = useState(false);
 
@@ -46,7 +43,7 @@ export default function PublicLayout({ children }) {
                                     Tarung Web
                                 </div>
                                 <div className="text-sm font-semibold text-[#111827]">
-                                    Modern Martial Arts Portal
+                                    Portal Tarung Derajat
                                 </div>
                             </div>
                         </Link>
@@ -56,7 +53,7 @@ export default function PublicLayout({ children }) {
                                 href={route('home')}
                                 className="text-sm font-medium text-[#111827]/70 transition hover:text-[#1d4ed8]"
                             >
-                                Home
+                                Beranda
                             </Link>
                             <Link
                                 href={route('public.informasi')}
@@ -108,10 +105,6 @@ export default function PublicLayout({ children }) {
                                 Akses Admin
                             </button>
 
-                            <div className="hidden sm:block">
-                                <LanguageSwitcher locales={locales} currentLocale={currentLocale} />
-                            </div>
-
                             <button
                                 type="button"
                                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-sm font-semibold text-[#111827] lg:hidden"
@@ -151,10 +144,10 @@ export default function PublicLayout({ children }) {
                         <div id="public-mobile-menu" className="absolute left-4 right-4 top-[calc(100%-0.1rem)] z-50 mt-3 rounded-[28px] border border-white/80 bg-white/95 p-4 shadow-[0_18px_60px_rgba(15,23,42,0.12)] lg:hidden">
                             <div className="flex flex-col gap-2">
                                 <a href={`${homeUrl}#history`} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
-                                    History
+                                    Sejarah
                                 </a>
                                 <a href={`${homeUrl}#philosophy`} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
-                                    Philosophy
+                                    Filosofi
                                 </a>
                                 <Link href={route('public.kompetisi-event')} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
                                     Kompetisi & Event
@@ -162,9 +155,6 @@ export default function PublicLayout({ children }) {
                                 <Link href={route('public.informasi')} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
                                     Informasi
                                 </Link>
-                                <div className="pt-2 sm:hidden">
-                                    <LanguageSwitcher locales={locales} currentLocale={currentLocale} />
-                                </div>
                             </div>
                         </div>
                     ) : null}
@@ -180,14 +170,14 @@ export default function PublicLayout({ children }) {
                             Tarung Derajat
                         </div>
                         <p className="mt-3 max-w-2xl text-sm leading-6 text-white/72">
-                            Platform yang lebih rapi untuk promosi global, standarisasi edukasi,
+                            Platform yang lebih rapi untuk promosi, standarisasi edukasi,
                             dan administrasi yang siap tumbuh.
                         </p>
                     </div>
 
                     <div className="text-sm text-white/65">
-                        <p>Responsive layout for desktop and mobile.</p>
-                        <p className="mt-2">Theme: soft blue, white, and deep navy.</p>
+                        <p>Tampilan responsif untuk desktop dan mobile.</p>
+                        <p className="mt-2">Tema: biru lembut, putih, dan navy gelap.</p>
                     </div>
                 </div>
             </footer>

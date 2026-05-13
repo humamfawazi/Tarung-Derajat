@@ -121,12 +121,12 @@ Route::get('/', function () use ($buildHomeProps) {
 })->name('home');
 
 Route::get('/id', function () use ($buildHomeProps) {
-    return Inertia::render('Public/Home', $buildHomeProps('id'));
+    return redirect()->route('home');
 })->name('home.id');
 
 Route::get('/en', function () use ($buildHomeProps) {
-    return Inertia::render('Public/Home', $buildHomeProps('en'));
-})->name('home.en');
+    return redirect()->route('home');
+})->name('home.redirect');
 
 // Public Pages - Informasi
 Route::get('/informasi', function () {
@@ -164,7 +164,7 @@ Route::get('/informasi/artikel/{article}', function (Article $article) {
 Route::get('/kompetisi-event', function () {
     $educationSections = Schema::hasTable('landing_sections')
         ? LandingSection::query()
-            ->where('locale', app()->getLocale())
+            ->where('locale', 'id')
             ->where('is_active', true)
             ->where('section_key', 'like', 'education_%')
             ->orderBy('sort_order')
@@ -186,7 +186,7 @@ Route::get('/edukasi', function () {
 Route::get('/tentang-kami/sejarah', function () {
     $historySections = Schema::hasTable('landing_sections')
         ? LandingSection::query()
-            ->where('locale', app()->getLocale())
+            ->where('locale', 'id')
             ->where('is_active', true)
             ->where('section_key', 'like', 'history_%')
             ->orderBy('sort_order')
@@ -203,7 +203,7 @@ Route::get('/tentang-kami/sejarah', function () {
 Route::get('/tentang-kami/filosofi', function () {
     $philosophySections = Schema::hasTable('landing_sections')
         ? LandingSection::query()
-            ->where('locale', app()->getLocale())
+            ->where('locale', 'id')
             ->where('is_active', true)
             ->where('section_key', 'like', 'philosophy_%')
             ->orderBy('sort_order')
@@ -258,9 +258,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         $adminInfos = collect();
 
         if (Schema::hasTable('landing_sections')) {
-            $currentLocale = app()->getLocale() === 'en' ? 'en' : 'id';
             $adminInfos = LandingSection::query()
-                ->where('locale', $currentLocale)
+                ->where('locale', 'id')
                 ->where('is_active', true)
                 ->orderBy('sort_order')
                 ->orderBy('id')

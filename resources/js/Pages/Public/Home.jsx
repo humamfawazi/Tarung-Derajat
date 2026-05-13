@@ -1,124 +1,66 @@
 import YouTubeEmbed from '@/Components/YouTubeEmbed';
 import Modal from '@/Components/Modal';
 import PublicLayout from '@/Layouts/PublicLayout';
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useState } from 'react';
 
 const copy = {
     id: {
         title: 'Tarung Web',
-        eyebrow: 'Tarung Derajat Global Platform',
-        headline: 'Tarung Derajat untuk kontribusi ilmu kelas dunia.',
+        eyebrow: 'Platform Tarung Derajat Indonesia',
+        headline: 'Tarung Derajat untuk penguatan organisasi nasional.',
         description:
-            'Platform ini dirancang untuk mendukung pengembangan manajemen olahraga secara teoretis sekaligus menjadi sarana praktis pengelolaan data, informasi, dan promosi Tarung Derajat.',
+            'Platform ini dirancang untuk mendukung pengembangan manajemen olahraga di Indonesia sekaligus menjadi sarana praktis pengelolaan data, informasi, dan promosi Tarung Derajat.',
         primaryCta: 'Masuk ke sistem',
         secondaryCta: 'Jelajahi konten',
-        trustLabel: 'implementasi digital untuk seni beladiri lokal',
+        trustLabel: 'implementasi digital untuk seni beladiri Indonesia',
         searchTitle: 'Akses data dan informasi organisasi',
         searchHeroTitle: 'Integrasi Data, Literasi, dan Promosi',
-        searchHeroText: 'Satu pintu digital untuk kebutuhan pengurus, pembinaan, dan publikasi identitas Tarung Derajat ke level internasional.',
+        searchHeroText: 'Satu pintu digital untuk kebutuhan pengurus, pembinaan, dan publikasi identitas Tarung Derajat di tingkat nasional.',
         searchButton: 'Cari',
         searchFields: [
             { label: 'Data Organisasi', value: 'Anggota, pelatih, cabang' },
             { label: 'Informasi', value: 'Agenda, kebijakan, publikasi' },
             { label: 'Promosi', value: 'Artikel, video, profil prestasi' },
-            { label: 'Standar', value: 'Kelas dunia dan terukur' },
+            { label: 'Standar', value: 'Nasional dan terukur' },
         ],
         stats: [
             { value: '01', label: 'Teoretis' },
             { value: '02', label: 'Praktis' },
-            { value: '03', label: 'Internasional' },
+            { value: '03', label: 'Nasional' },
         ],
         featuresTitle: 'Highlight',
         featuresHeading: 'Artikel Terbaru, Video, dan Kompetisi & Event',
         features: [
             {
                 title: 'Manfaat Teoretis',
-                text: 'Memberikan kontribusi pada pengembangan ilmu manajemen olahraga, khususnya literatur transformasi digital dan strategi internasionalisasi seni beladiri lokal.',
+                text: 'Memberikan kontribusi pada pengembangan ilmu manajemen olahraga di Indonesia, khususnya literatur transformasi digital dan penguatan seni beladiri nasional.',
             },
             {
                 title: 'Manfaat Praktis',
                 text: 'Menjadi sarana digital bagi pengurus Tarung Derajat dalam mengelola data dan informasi secara efisien, akurat, dan berkelanjutan.',
             },
             {
-                title: 'Arah Organisasi Kelas Dunia',
-                text: 'Memperkuat promosi dan tata kelola organisasi untuk mendukung positioning Tarung Derajat pada standar organisasi olahraga internasional.',
+                title: 'Arah Organisasi Nasional',
+                text: 'Memperkuat promosi dan tata kelola organisasi untuk mendukung posisi Tarung Derajat sebagai bela diri nasional yang tertata dan terukur.',
             },
         ],
-        historyTitle: 'Dari seni beladiri lokal menuju ekosistem digital global.',
+        historyTitle: 'Dari seni beladiri lokal menuju ekosistem digital nasional.',
         historyText:
-            'Tarung Derajat memiliki akar nilai yang kuat. Melalui website ini, nilai tersebut diterjemahkan ke dalam sistem informasi yang terstruktur untuk mendukung pengembangan organisasi sekaligus mendorong internasionalisasi berbasis data.',
+            'Tarung Derajat memiliki akar nilai yang kuat. Melalui website ini, nilai tersebut diterjemahkan ke dalam sistem informasi yang terstruktur untuk mendukung pengembangan organisasi di Indonesia secara lebih rapi dan konsisten.',
         philosophyTitle: 'Manfaat Teoretis',
         philosophyText:
-            'Website ini menjadi kontribusi akademik pada ranah manajemen olahraga: menghubungkan konsep transformasi digital, tata kelola organisasi, dan strategi internasionalisasi seni beladiri lokal dalam satu model implementasi nyata.',
+            'Website ini menjadi kontribusi akademik pada ranah manajemen olahraga: menghubungkan konsep transformasi digital, tata kelola organisasi, dan penguatan seni beladiri nasional dalam satu model implementasi nyata.',
         educationTitle: 'Manfaat Praktis untuk Pengurus',
         educationText:
             'Secara operasional, platform ini memudahkan pengurus dalam pengelolaan data, distribusi informasi, dan promosi program secara cepat dan efisien, sehingga proses manajemen organisasi lebih terukur dan profesional.',
-        adminTitle: 'Target: organisasi kelas dunia',
+        adminTitle: 'Target: organisasi nasional yang tertata',
         adminText:
-            'Sistem admin pusat, pelatih, dan anggota disiapkan sebagai fondasi tata kelola modern untuk mendukung standarisasi, transparansi, dan citra global Tarung Derajat.',
+            'Sistem admin pusat, pelatih, dan anggota disiapkan sebagai fondasi tata kelola modern untuk mendukung standarisasi, transparansi, dan citra Tarung Derajat di Indonesia.',
         pillars: [
-            'Transformasi digital berbasis literatur manajemen olahraga',
+            'Transformasi digital berbasis literatur manajemen olahraga Indonesia',
             'Efisiensi pengelolaan data dan informasi organisasi',
-            'Promosi strategis menuju standar organisasi kelas dunia',
-        ],
-    },
-    en: {
-        title: 'Tarung Web',
-        eyebrow: 'Tarung Derajat Global Platform',
-        headline: 'Digital transformation for Tarung Derajat to advance theory and world-class organizational practice.',
-        description:
-            'This platform is designed to support sports management scholarship while becoming a practical digital tool for Tarung Derajat governance, information management, and promotion.',
-        primaryCta: 'Enter the system',
-        secondaryCta: 'Explore content',
-        trustLabel: 'A research-to-practice direction for digital transformation and internationalization',
-        searchTitle: 'Access organizational data and information',
-        searchHeroTitle: 'Integrated Data, Literacy, and Promotion',
-        searchHeroText: 'A single digital gateway for administrators, development programs, and global promotion of Tarung Derajat identity.',
-        searchButton: 'Search',
-        searchFields: [
-            { label: 'Organization Data', value: 'Members, coaches, branches' },
-            { label: 'Information', value: 'Agenda, policy, publications' },
-            { label: 'Promotion', value: 'Articles, videos, achievements' },
-            { label: 'Standard', value: 'World-class and measurable' },
-        ],
-        stats: [
-            { value: '01', label: 'Theoretical' },
-            { value: '02', label: 'Practical' },
-            { value: '03', label: 'International' },
-        ],
-        featuresTitle: 'Highlight',
-        featuresHeading: 'Latest Articles, Videos, and Competitions & Events',
-        features: [
-            {
-                title: 'Theoretical Contribution',
-                text: 'Contributes to sports management studies, especially digital transformation literature and internationalization strategy for local martial arts.',
-            },
-            {
-                title: 'Practical Contribution',
-                text: 'Provides a digital workspace for Tarung Derajat administrators to manage data and information efficiently, consistently, and sustainably.',
-            },
-            {
-                title: 'World-Class Organization Direction',
-                text: 'Strengthens promotion and governance quality to support Tarung Derajat positioning at world-class organizational standards.',
-            },
-        ],
-        historyTitle: 'From local martial heritage to a global digital ecosystem.',
-        historyText:
-            'Tarung Derajat is built on strong values. Through this website, those values are translated into a structured information system to support organizational development and data-driven internationalization.',
-        philosophyTitle: 'Theoretical Contribution',
-        philosophyText:
-            'This website contributes to sports management discourse by linking digital transformation concepts, governance models, and internationalization strategy for local martial arts in a real implementation.',
-        educationTitle: 'Practical Benefit for Administrators',
-        educationText:
-            'Operationally, this platform helps administrators manage data, distribute information, and run promotion more efficiently, making governance more measurable and professional.',
-        adminTitle: 'Target: world-class organization',
-        adminText:
-            'The central admin, coach, and member system is built as a modern governance foundation to support standardization, transparency, and global branding of Tarung Derajat.',
-        pillars: [
-            'Digital transformation grounded in sports management literature',
-            'Efficient management of organizational data and information',
-            'Strategic promotion toward world-class organizational standards',
+            'Promosi strategis menuju standar organisasi nasional',
         ],
     },
 };
@@ -173,9 +115,7 @@ export default function Home({
     latestVideos = [],
 }) {
     const [activePreview, setActivePreview] = useState(null);
-    const { locale } = usePage().props;
-    const currentLocale = locale?.current === 'en' ? 'en' : 'id';
-    const content = copy[currentLocale];
+    const content = copy.id;
     
     const stripHtml = (html) => html?.replace(/<[^>]+>/g, '') ?? '';
     
@@ -210,7 +150,7 @@ export default function Home({
         }))
     ].sort((a, b) => b.dateObj - a.dateObj).map(item => ({
         ...item,
-        date: item.dateObj.toLocaleDateString(currentLocale === 'en' ? 'en-US' : 'id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
+        date: item.dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
     }));
     
     const features = highlights.length > 0
@@ -238,7 +178,7 @@ export default function Home({
     const fieldValues = Object.fromEntries(
         searchFields.map((field, index) => [field.key, content.searchFields[index]]),
     );
-    const homeInformationUrl = `${currentLocale === 'en' ? route('home.en') : route('home')}#information`;
+    const homeInformationUrl = `${route('home')}#information`;
 
     const openPreview = ({ title, contentText, meta = '', ctaUrl = null, ctaLabel = null }) => {
         setActivePreview({ title, contentText, meta, ctaUrl, ctaLabel });
@@ -424,7 +364,7 @@ export default function Home({
                             
                             <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#111827]/50">
                                 <span>
-                                    {feature.type === 'video' ? (currentLocale === 'en' ? 'Video' : 'Video') : feature.type === 'education' ? (currentLocale === 'en' ? 'Competition & Event' : 'Kompetisi & Event') : (currentLocale === 'en' ? 'Article' : 'Artikel')}
+                                    {feature.type === 'video' ? 'Video' : feature.type === 'education' ? 'Kompetisi & Event' : 'Artikel'}
                                 </span>
                                 {feature.date && (
                                     <>
@@ -447,7 +387,7 @@ export default function Home({
                                         href={feature.url}
                                         className="inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
                                     >
-                                        {currentLocale === 'en' ? 'Read More' : 'Baca Selengkapnya'}
+                                        Baca Selengkapnya
                                     </Link>
                                 ) : (
                                     <button
@@ -461,7 +401,7 @@ export default function Home({
                                         }
                                         className="inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
                                     >
-                                        {currentLocale === 'en' ? 'Read' : 'Baca'}
+                                        Baca
                                     </button>
                                 )}
                             </div>
@@ -474,7 +414,7 @@ export default function Home({
                 <div className="space-y-5">
                     <div className="rounded-[34px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
-                            History
+                            Sejarah
                         </div>
                         <div className="mt-4 space-y-4">
                             {historyItems.map((item) => (
@@ -500,7 +440,7 @@ export default function Home({
                                             openPreview({
                                                 title: item.title,
                                                 contentText: item.content,
-                                                meta: 'History',
+                                                meta: 'Sejarah',
                                             })
                                         }
                                         className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
@@ -514,7 +454,7 @@ export default function Home({
 
                     <div id="philosophy" className="rounded-[34px] border border-[#1d4ed8]/10 bg-[linear-gradient(180deg,#eff6ff_0%,#ffffff_100%)] p-6 shadow-[0_18px_70px_rgba(29,78,216,0.08)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
-                            Philosophy
+                            Filosofi
                         </div>
                         <div className="mt-4 space-y-4">
                             {philosophyItems.map((item) => (
@@ -540,7 +480,7 @@ export default function Home({
                                             openPreview({
                                                 title: item.title,
                                                 contentText: item.content,
-                                                meta: 'Philosophy',
+                                                meta: 'Filosofi',
                                             })
                                         }
                                         className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"
@@ -565,7 +505,7 @@ export default function Home({
                 <div className="space-y-6">
                     <div className="rounded-[34px] border border-white/80 bg-white/90 p-6 shadow-[0_18px_70px_rgba(15,23,42,0.06)] sm:p-7">
                         <div className="text-xs font-semibold uppercase tracking-[0.34em] text-[#1d4ed8]/70">
-                            Education
+                            Pendidikan
                         </div>
                         <div className="mt-4 space-y-4">
                             {educationItems.map((item) => (
@@ -591,7 +531,7 @@ export default function Home({
                                             openPreview({
                                                 title: item.title,
                                                 contentText: item.content,
-                                                meta: 'Education',
+                                                meta: 'Edukasi',
                                             })
                                         }
                                         className="mt-4 inline-flex rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111827]/75 transition hover:border-[#1d4ed8]/25 hover:text-[#1d4ed8]"

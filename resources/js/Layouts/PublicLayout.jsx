@@ -67,6 +67,18 @@ export default function PublicLayout({ children }) {
                             >
                                 Kompetisi & Event
                             </Link>
+                            <Link
+                                href={route('galleries.view')}
+                                className="text-sm font-medium text-[#111827]/70 transition hover:text-[#1d4ed8]"
+                            >
+                                Galeri
+                            </Link>
+                            <Link
+                                href={route('public.program')}
+                                className="text-sm font-medium text-[#111827]/70 transition hover:text-[#1d4ed8]"
+                            >
+                                Program
+                            </Link>
 
                             <div className="relative group">
                                 <button
@@ -154,6 +166,12 @@ export default function PublicLayout({ children }) {
                                 </Link>
                                 <Link href={route('public.informasi')} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
                                     Informasi
+                                </Link>
+                                <Link href={route('galleries.view')} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
+                                    Galeri
+                                </Link>
+                                <Link href={route('public.program')} className="rounded-2xl px-4 py-3 text-sm font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
+                                    Program
                                 </Link>
                             </div>
                         </div>

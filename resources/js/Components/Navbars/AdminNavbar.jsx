@@ -29,12 +29,6 @@ export default function AdminNavbar() {
 
                         <div className="hidden items-center gap-6 lg:flex">
                             <Link
-                                href={route('home')}
-                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('home') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
-                            >
-                                Home
-                            </Link>
-                            <Link
                                 href={route('dashboard')}
                                 className={`text-sm font-bold uppercase tracking-wider transition ${route().current('dashboard') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
                             >
@@ -69,6 +63,12 @@ export default function AdminNavbar() {
                                 className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.galleries.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
                             >
                                 Galeri
+                            </Link>
+                            <Link
+                                href={route('admin.programs.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.programs.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Program
                             </Link>
                             <Link
                                 href={route('admin.landing.index')}
@@ -206,6 +206,12 @@ export default function AdminNavbar() {
                                 active={route().current('admin.galleries.*')}
                             >
                                 Galeri
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('admin.programs.index')}
+                                active={route().current('admin.programs.*')}
+                            >
+                                Program
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 href={route('admin.landing.index')}

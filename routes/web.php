@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminLandingController;
 use App\Http\Controllers\AdminCalendarController;
 use App\Http\Controllers\AdminGalleryController;
+use App\Http\Controllers\AdminProgramController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Services\YouTubeTokenStore;
@@ -20,6 +21,7 @@ use App\Models\User;
 use App\Models\Member;
 use App\Models\Calendar;
 use App\Models\Gallery;
+use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -271,6 +273,20 @@ Route::get('/galleries', function () {
     ]);
 })->name('galleries.view');
 
+// Public Pages - Program Latihan
+Route::get('/program', function () {
+    $programs = Schema::hasTable('programs')
+        ? Program::where('is_active', true)
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get()
+        : collect();
+
+    return Inertia::render('Public/Program', [
+        'programs' => $programs,
+    ]);
+})->name('public.program');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/content/create', [ContentController::class, 'create'])->name('content.create');
     Route::post('/content', [ContentController::class, 'store'])->name('content.store');
@@ -471,6 +487,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/galleries/{gallery}/edit', [AdminGalleryController::class, 'edit'])->name('galleries.edit');
         Route::patch('/galleries/{gallery}', [AdminGalleryController::class, 'update'])->name('galleries.update');
         Route::delete('/galleries/{gallery}', [AdminGalleryController::class, 'destroy'])->name('galleries.destroy');
+
+        // Program Management
+        Route::get('/programs', [AdminProgramController::class, 'index'])->name('programs.index');
+        Route::get('/programs/create', [AdminProgramController::class, 'create'])->name('programs.create');
+        Route::post('/programs', [AdminProgramController::class, 'store'])->name('programs.store');
+        Route::get('/programs/{program}/edit', [AdminProgramController::class, 'edit'])->name('programs.edit');
+        Route::patch('/programs/{program}', [AdminProgramController::class, 'update'])->name('programs.update');
+        Route::delete('/programs/{program}', [AdminProgramController::class, 'destroy'])->name('programs.destroy');
     });
 });
 

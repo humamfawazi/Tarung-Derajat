@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminDisplaySettingController;
 use App\Http\Controllers\AdminYouTubeController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminLandingController;
+use App\Http\Controllers\AdminCalendarController;
+use App\Http\Controllers\AdminGalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MemberController;
 use App\Services\YouTubeTokenStore;
@@ -16,6 +18,8 @@ use App\Models\LandingSection;
 use App\Models\Video;
 use App\Models\User;
 use App\Models\Member;
+use App\Models\Calendar;
+use App\Models\Gallery;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
@@ -172,8 +176,17 @@ Route::get('/kompetisi-event', function () {
             ->get(['id', 'title', 'content', 'image_path'])
         : collect();
 
+    $calendars = Schema::hasTable('calendars')
+        ? Calendar::query()
+            ->where('is_active', true)
+            ->latest('start_date')
+            ->limit(6)
+            ->get()
+        : collect();
+
     return Inertia::render('Public/KompetisiEvent', [
         'educationSections' => $educationSections,
+        'calendars' => $calendars,
     ]);
 })->name('public.kompetisi-event');
 
@@ -234,6 +247,29 @@ Route::get('/content', [ContentController::class, 'index'])->name('content.index
 Route::get('/videos', [VideoController::class, 'index'])->name('videos.index');
 Route::get('/videos/{video}', [VideoController::class, 'show'])->name('videos.show');
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/calendars', function () {
+    $calendars = Schema::hasTable('calendars')
+        ? Calendar::where('is_active', true)
+            ->latest('start_date')
+            ->get()
+        : collect();
+
+    return Inertia::render('Public/Calendars', [
+        'calendars' => $calendars,
+    ]);
+})->name('calendars.view');
+
+Route::get('/galleries', function () {
+    $galleries = Schema::hasTable('galleries')
+        ? Gallery::where('is_active', true)
+            ->latest('id')
+            ->paginate(12)
+        : collect();
+
+    return Inertia::render('Public/Galleries', [
+        'galleries' => $galleries,
+    ]);
+})->name('galleries.view');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/content/create', [ContentController::class, 'create'])->name('content.create');
@@ -419,6 +455,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/members/{member}/edit', [MemberController::class, 'edit'])->name('members.edit');
         Route::patch('/members/{member}', [MemberController::class, 'update'])->name('members.update');
         Route::delete('/members/{member}', [MemberController::class, 'destroy'])->name('members.destroy');
+
+        // Calendar Management
+        Route::get('/calendars', [AdminCalendarController::class, 'index'])->name('calendars.index');
+        Route::get('/calendars/create', [AdminCalendarController::class, 'create'])->name('calendars.create');
+        Route::post('/calendars', [AdminCalendarController::class, 'store'])->name('calendars.store');
+        Route::get('/calendars/{calendar}/edit', [AdminCalendarController::class, 'edit'])->name('calendars.edit');
+        Route::patch('/calendars/{calendar}', [AdminCalendarController::class, 'update'])->name('calendars.update');
+        Route::delete('/calendars/{calendar}', [AdminCalendarController::class, 'destroy'])->name('calendars.destroy');
+
+        // Gallery Management
+        Route::get('/galleries', [AdminGalleryController::class, 'index'])->name('galleries.index');
+        Route::get('/galleries/create', [AdminGalleryController::class, 'create'])->name('galleries.create');
+        Route::post('/galleries', [AdminGalleryController::class, 'store'])->name('galleries.store');
+        Route::get('/galleries/{gallery}/edit', [AdminGalleryController::class, 'edit'])->name('galleries.edit');
+        Route::patch('/galleries/{gallery}', [AdminGalleryController::class, 'update'])->name('galleries.update');
+        Route::delete('/galleries/{gallery}', [AdminGalleryController::class, 'destroy'])->name('galleries.destroy');
     });
 });
 

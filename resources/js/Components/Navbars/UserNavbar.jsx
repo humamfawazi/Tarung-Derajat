@@ -71,6 +71,18 @@ export default function UserNavbar() {
                                     </div>
                                 )}
                             </div>
+                            <NavLink
+                                href={route('calendars.view')}
+                                active={route().current('calendars.view')}
+                            >
+                                Jadwal
+                            </NavLink>
+                            <NavLink
+                                href={route('galleries.view')}
+                                active={route().current('galleries.view')}
+                            >
+                                Galeri
+                            </NavLink>
                         </div>
                     </div>
 
@@ -214,6 +226,18 @@ export default function UserNavbar() {
                                     </div>
                                 )}
                             </div>
+                            <ResponsiveNavLink
+                                href={route('calendars.view')}
+                                active={route().current('calendars.view')}
+                            >
+                                Jadwal
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('galleries.view')}
+                                active={route().current('galleries.view')}
+                            >
+                                Galeri
+                            </ResponsiveNavLink>
                         </div>
 
                         <div className="border-t border-[#1d4ed8]/10 pb-1 pt-4">

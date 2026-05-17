@@ -64,6 +64,18 @@ export default function PelatihNavbar() {
                                     </div>
                                 )}
                             </div>
+                            <NavLink
+                                href={route('calendars.view')}
+                                active={route().current('calendars.view')}
+                            >
+                                Jadwal
+                            </NavLink>
+                            <NavLink
+                                href={route('galleries.view')}
+                                active={route().current('galleries.view')}
+                            >
+                                Galeri
+                            </NavLink>
                         </div>
                     </div>
 
@@ -202,6 +214,18 @@ export default function PelatihNavbar() {
                                     </div>
                                 )}
                             </div>
+                            <ResponsiveNavLink
+                                href={route('calendars.view')}
+                                active={route().current('calendars.view')}
+                            >
+                                Jadwal
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('galleries.view')}
+                                active={route().current('galleries.view')}
+                            >
+                                Galeri
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 href={route('dashboard')}
                             >

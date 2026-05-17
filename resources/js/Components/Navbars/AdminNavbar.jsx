@@ -59,6 +59,18 @@ export default function AdminNavbar() {
                                 Anggota
                             </Link>
                             <Link
+                                href={route('admin.calendars.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.calendars.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Jadwal
+                            </Link>
+                            <Link
+                                href={route('admin.galleries.index')}
+                                className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.galleries.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
+                            >
+                                Galeri
+                            </Link>
+                            <Link
                                 href={route('admin.landing.index')}
                                 className={`text-sm font-bold uppercase tracking-wider transition ${route().current('admin.landing.*') ? 'text-[#1d4ed8] border-b-2 border-[#1d4ed8]' : 'text-[#111827]/60 hover:text-[#1d4ed8]'}`}
                             >
@@ -166,16 +178,40 @@ export default function AdminNavbar() {
                     <div className="overflow-hidden rounded-[28px] border border-[#1d4ed8]/10 bg-white/95 shadow-[0_18px_50px_rgba(15,23,42,0.1)]">
                         <div className="space-y-1 pb-3 pt-2">
                             <ResponsiveNavLink
-                                href={route('public.informasi')}
-                                active={route().current('public.informasi')}
+                                href={route('admin.articles.index')}
+                                active={route().current('admin.articles.*')}
                             >
-                                Informasi
+                                Artikel
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
-                                href={route('public.edukasi')}
-                                active={route().current('public.edukasi')}
+                                href={route('admin.videos.index')}
+                                active={route().current('admin.videos.*')}
                             >
-                                Edukasi
+                                Video
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('admin.members.index')}
+                                active={route().current('admin.members.*')}
+                            >
+                                Anggota
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('admin.calendars.index')}
+                                active={route().current('admin.calendars.*')}
+                            >
+                                Jadwal
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('admin.galleries.index')}
+                                active={route().current('admin.galleries.*')}
+                            >
+                                Galeri
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route('admin.landing.index')}
+                                active={route().current('admin.landing.*')}
+                            >
+                                Halaman Statis
                             </ResponsiveNavLink>
                             <div className="px-4 py-2">
                                 <button

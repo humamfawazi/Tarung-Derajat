@@ -11,6 +11,11 @@ export default function UserNavbar() {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
+    const isTentangKamiActive =
+        route().current('public.tentang-kami.sejarah') ||
+        route().current('public.tentang-kami.filosofi') ||
+        route().current('public.tentang-kami.daftar-pengurus');
+
     return (
         <nav className="sticky top-0 z-40 border-b border-white/70 bg-white/72 text-[#111827] backdrop-blur-xl">
             <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
@@ -50,7 +55,10 @@ export default function UserNavbar() {
                             <div className="relative">
                                 <button
                                     onClick={() => setShowAboutDropdown(!showAboutDropdown)}
-                                    className="inline-flex items-center gap-1 text-sm font-medium text-[#111827]/65 transition hover:text-[#1d4ed8]"
+                                    className={`inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-semibold leading-5 transition-all duration-200 ease-in-out focus:outline-none ${isTentangKamiActive
+                                            ? 'bg-[#1d4ed8] text-white shadow-[0_2px_12px_rgba(29,78,216,0.35)]'
+                                            : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        }`}
                                 >
                                     Tentang Kami
                                     <svg className={`h-4 w-4 transition-transform ${showAboutDropdown ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -59,13 +67,31 @@ export default function UserNavbar() {
                                 </button>
                                 {showAboutDropdown && (
                                     <div className="absolute left-0 mt-2 w-48 rounded-lg border border-[#1d4ed8]/10 bg-white shadow-lg z-50">
-                                        <Link href={route('public.tentang-kami.sejarah')} className="block px-4 py-2 text-sm text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8] rounded-t-lg">
+                                        <Link
+                                            href={route('public.tentang-kami.sejarah')}
+                                            className={`block px-4 py-2 text-sm rounded-t-lg transition-colors duration-150 ${route().current('public.tentang-kami.sejarah')
+                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                }`}
+                                        >
                                             Sejarah
                                         </Link>
-                                        <Link href={route('public.tentang-kami.filosofi')} className="block px-4 py-2 text-sm text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]">
+                                        <Link
+                                            href={route('public.tentang-kami.filosofi')}
+                                            className={`block px-4 py-2 text-sm transition-colors duration-150 ${route().current('public.tentang-kami.filosofi')
+                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                }`}
+                                        >
                                             Filosofi
                                         </Link>
-                                        <Link href={route('public.tentang-kami.daftar-pengurus')} className="block px-4 py-2 text-sm text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8] rounded-b-lg">
+                                        <Link
+                                            href={route('public.tentang-kami.daftar-pengurus')}
+                                            className={`block px-4 py-2 text-sm rounded-b-lg transition-colors duration-150 ${route().current('public.tentang-kami.daftar-pengurus')
+                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                }`}
+                                        >
                                             Daftar Pengurus & Atlet
                                         </Link>
                                     </div>
@@ -208,19 +234,34 @@ export default function UserNavbar() {
                             <div className="px-4 py-2">
                                 <button
                                     onClick={() => setShowAboutDropdown(!showAboutDropdown)}
-                                    className="text-left text-sm font-medium text-[#111827]/65 w-full"
+                                    className={`flex w-full items-center justify-between text-left text-base font-medium transition-colors duration-150 ${isTentangKamiActive
+                                            ? 'text-[#1d4ed8] font-semibold'
+                                            : 'text-[#111827]/65'
+                                        }`}
                                 >
                                     Tentang Kami
+                                    <svg className={`h-4 w-4 transition-transform ${showAboutDropdown ? 'rotate-180' : ''}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                                    </svg>
                                 </button>
                                 {showAboutDropdown && (
                                     <div className="mt-2 space-y-1 pl-4">
-                                        <ResponsiveNavLink href={route('public.tentang-kami.sejarah')}>
+                                        <ResponsiveNavLink
+                                            href={route('public.tentang-kami.sejarah')}
+                                            active={route().current('public.tentang-kami.sejarah')}
+                                        >
                                             Sejarah
                                         </ResponsiveNavLink>
-                                        <ResponsiveNavLink href={route('public.tentang-kami.filosofi')}>
+                                        <ResponsiveNavLink
+                                            href={route('public.tentang-kami.filosofi')}
+                                            active={route().current('public.tentang-kami.filosofi')}
+                                        >
                                             Filosofi
                                         </ResponsiveNavLink>
-                                        <ResponsiveNavLink href={route('public.tentang-kami.daftar-pengurus')}>
+                                        <ResponsiveNavLink
+                                            href={route('public.tentang-kami.daftar-pengurus')}
+                                            active={route().current('public.tentang-kami.daftar-pengurus')}
+                                        >
                                             Daftar Pengurus & Atlet
                                         </ResponsiveNavLink>
                                     </div>

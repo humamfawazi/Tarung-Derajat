@@ -92,11 +92,10 @@ export default function PublicLayout({ children }) {
 
                             <div className="relative group">
                                 <button
-                                    className={`inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus:outline-none ${
-                                        isTentangKamiActive
+                                    className={`inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus:outline-none ${isTentangKamiActive
                                             ? 'bg-[#1d4ed8] text-white shadow-[0_2px_12px_rgba(29,78,216,0.35)]'
                                             : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Tentang Kami
                                     <svg className="h-4 w-4 transition-transform group-hover:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -107,31 +106,28 @@ export default function PublicLayout({ children }) {
                                     <div className="py-1">
                                         <Link
                                             href={route('public.tentang-kami.sejarah')}
-                                            className={`block px-4 py-2 text-sm rounded-t-xl transition-colors duration-150 ${
-                                                route().current('public.tentang-kami.sejarah')
+                                            className={`block px-4 py-2 text-sm rounded-t-xl transition-colors duration-150 ${route().current('public.tentang-kami.sejarah')
                                                     ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Sejarah
                                         </Link>
                                         <Link
                                             href={route('public.tentang-kami.filosofi')}
-                                            className={`block px-4 py-2 text-sm transition-colors duration-150 ${
-                                                route().current('public.tentang-kami.filosofi')
+                                            className={`block px-4 py-2 text-sm transition-colors duration-150 ${route().current('public.tentang-kami.filosofi')
                                                     ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Filosofi
                                         </Link>
                                         <Link
                                             href={route('public.tentang-kami.daftar-pengurus')}
-                                            className={`block px-4 py-2 text-sm rounded-b-xl transition-colors duration-150 ${
-                                                route().current('public.tentang-kami.daftar-pengurus')
+                                            className={`block px-4 py-2 text-sm rounded-b-xl transition-colors duration-150 ${route().current('public.tentang-kami.daftar-pengurus')
                                                     ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Daftar Pengurus & Atlet
                                         </Link>
@@ -192,88 +188,79 @@ export default function PublicLayout({ children }) {
                             <div className="flex flex-col gap-1">
                                 <Link
                                     href={route('home')}
-                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${
-                                        route().current('home')
+                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('home')
                                             ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                             : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Beranda
                                 </Link>
                                 <Link
                                     href={route('public.informasi')}
-                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${
-                                        route().current('public.informasi')
+                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.informasi')
                                             ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                             : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Informasi
                                 </Link>
                                 <Link
                                     href={route('public.kompetisi-event')}
-                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${
-                                        route().current('public.kompetisi-event')
+                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.kompetisi-event')
                                             ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                             : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Kompetisi & Event
                                 </Link>
                                 <Link
                                     href={route('galleries.view')}
-                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${
-                                        route().current('galleries.view')
+                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('galleries.view')
                                             ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                             : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Galeri
                                 </Link>
                                 <Link
                                     href={route('public.program')}
-                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${
-                                        route().current('public.program')
+                                    className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.program')
                                             ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                             : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                    }`}
+                                        }`}
                                 >
                                     Program
                                 </Link>
-                                <div className={`rounded-2xl px-4 py-3 text-sm ${
-                                    isTentangKamiActive
+                                <div className={`rounded-2xl px-4 py-3 text-sm ${isTentangKamiActive
                                         ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
                                         : 'font-medium text-[#111827]/75'
-                                }`}>
+                                    }`}>
                                     <div className="mb-1">Tentang Kami</div>
                                     <div className="flex flex-col gap-1 pl-2">
                                         <Link
                                             href={route('public.tentang-kami.sejarah')}
-                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${
-                                                route().current('public.tentang-kami.sejarah')
+                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.sejarah')
                                                     ? 'text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Sejarah
                                         </Link>
                                         <Link
                                             href={route('public.tentang-kami.filosofi')}
-                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${
-                                                route().current('public.tentang-kami.filosofi')
+                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.filosofi')
                                                     ? 'text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Filosofi
                                         </Link>
                                         <Link
                                             href={route('public.tentang-kami.daftar-pengurus')}
-                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${
-                                                route().current('public.tentang-kami.daftar-pengurus')
+                                            className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.daftar-pengurus')
                                                     ? 'text-[#1d4ed8] font-semibold'
                                                     : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
-                                            }`}
+                                                }`}
                                         >
                                             Daftar Pengurus & Atlet
                                         </Link>

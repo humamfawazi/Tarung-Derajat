@@ -1,4 +1,3 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
@@ -21,13 +20,24 @@ export default function UserNavbar() {
             <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
                 <div className="flex min-h-[4.75rem] items-center justify-between rounded-full border border-white/80 bg-white/88 px-4 py-3 shadow-[0_18px_60px_rgba(59,130,246,0.08)] sm:px-6">
                     <div className="flex items-center gap-4 sm:gap-6">
-                        <Link href={route('home')} className="flex items-center gap-3">
-                            <ApplicationLogo className="block h-9 w-9 fill-current text-[#1d4ed8]" />
-                            <div>
-                                <div className="text-sm font-semibold uppercase tracking-[0.3em] text-[#111827]/55">
+                        <Link href={route('home')} className="flex items-center gap-4 transition-opacity hover:opacity-80">
+                            <div className="flex items-center gap-2.5">
+                                <img 
+                                    src="/images/jateng.png" 
+                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]" 
+                                    alt="Logo Jawa Tengah" 
+                                />
+                                <img 
+                                    src="/images/tarungderajat.png" 
+                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.08)]" 
+                                    alt="Logo Tarung Derajat" 
+                                />
+                            </div>
+                            <div className="leading-tight pl-0 sm:pl-1 sm:border-l sm:border-[#111827]/10">
+                                <div className="text-[11px] font-bold uppercase tracking-[0.32em] text-[#1d4ed8]/85 mb-0.5">
                                     Tarung Derajat
                                 </div>
-                                <div className="hidden text-sm font-medium text-[#111827] sm:block">
+                                <div className="hidden text-[15px] font-bold text-[#1e293b] tracking-tight sm:block">
                                     Platform Digital
                                 </div>
                             </div>
@@ -112,7 +122,8 @@ export default function UserNavbar() {
                         </div>
                     </div>
 
-                    <div className="hidden items-center gap-4 lg:flex">
+                    <div className="flex items-center gap-3">
+                        <div className="hidden items-center gap-4 lg:flex">
                         {user ? (
                             <div className="relative ms-3 z-[60]">
                                 <Dropdown>
@@ -206,6 +217,7 @@ export default function UserNavbar() {
                                 />
                             </svg>
                         </button>
+                    </div>
                     </div>
                 </div>
             </div>

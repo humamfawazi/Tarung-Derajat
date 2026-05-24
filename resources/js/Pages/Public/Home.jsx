@@ -8,7 +8,7 @@ const copy = {
     id: {
         title: 'Tarung Web',
         eyebrow: 'Platform Tarung Derajat Indonesia',
-        headline: 'Tarung Derajat untuk penguatan organisasi nasional.',
+        headline: 'Tarung Derajat untuk Penguatan Organisasi Nasional.',
         description:
             'Platform ini dirancang untuk mendukung pengembangan manajemen olahraga di Indonesia sekaligus menjadi sarana praktis pengelolaan data, informasi, dan promosi Tarung Derajat.',
         primaryCta: 'Masuk ke sistem',
@@ -116,9 +116,9 @@ export default function Home({
 }) {
     const [activePreview, setActivePreview] = useState(null);
     const content = copy.id;
-    
+
     const stripHtml = (html) => html?.replace(/<[^>]+>/g, '') ?? '';
-    
+
     // Combine articles, videos, and education sections into one highlight list
     const highlights = [
         ...latestArticles.map(a => ({
@@ -152,16 +152,16 @@ export default function Home({
         ...item,
         date: item.dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
     }));
-    
+
     const features = highlights.length > 0
         ? highlights.slice(0, 3)
         : landingSections.length > 0
-        ? landingSections.map((item) => ({
-            title: item.title,
-            text: item.content,
-            imagePath: item.image_path ?? null,
-        }))
-        : content.features;
+            ? landingSections.map((item) => ({
+                title: item.title,
+                text: item.content,
+                imagePath: item.image_path ?? null,
+            }))
+            : content.features;
 
     const historyItems = historySections.length > 0
         ? historySections
@@ -361,7 +361,7 @@ export default function Home({
                                     <span className="text-[#1d4ed8]/30 font-bold text-4xl">TD</span>
                                 </div>
                             )}
-                            
+
                             <div className="flex items-center gap-2 mb-3 text-xs font-semibold uppercase tracking-[0.1em] text-[#111827]/50">
                                 <span>
                                     {feature.type === 'video' ? 'Video' : feature.type === 'education' ? 'Kompetisi & Event' : 'Artikel'}
@@ -380,7 +380,7 @@ export default function Home({
                             <p className="mt-3 flex-1 line-clamp-3 break-words text-sm leading-6 text-[#111827]/68">
                                 {feature.text}
                             </p>
-                            
+
                             <div className="mt-5">
                                 {feature.url ? (
                                     <Link
@@ -552,7 +552,7 @@ export default function Home({
                         </div>
                     </div>
 
-                   
+
                 </div>
             </section>
 

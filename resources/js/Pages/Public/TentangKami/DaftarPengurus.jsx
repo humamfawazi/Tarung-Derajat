@@ -27,6 +27,8 @@ export default function DaftarPengurus({ members = [], locale = 'id' }) {
     const t = copy[locale] || copy.id;
     const [filter, setFilter] = useState('all');
 
+    const uniqueTypes = [...new Set(members.map(m => m.member_type))].filter(Boolean);
+
     const filteredMembers =
         filter === 'all'
             ? members
@@ -42,7 +44,7 @@ export default function DaftarPengurus({ members = [], locale = 'id' }) {
                     <p className="text-lg text-[#111827]/70">{t.description}</p>
                 </div>
 
-                <div className="mb-8 flex justify-center gap-4">
+                <div className="mb-8 flex justify-center gap-4 flex-wrap">
                     <button
                         onClick={() => setFilter('all')}
                         className={`px-6 py-2 rounded-full font-medium transition ${
@@ -53,26 +55,19 @@ export default function DaftarPengurus({ members = [], locale = 'id' }) {
                     >
                         {t.filterAll}
                     </button>
-                    <button
-                        onClick={() => setFilter('board')}
-                        className={`px-6 py-2 rounded-full font-medium transition ${
-                            filter === 'board'
-                                ? 'bg-[#1d4ed8] text-white'
-                                : 'border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#eff6ff]'
-                        }`}
-                    >
-                        {t.filterBoard}
-                    </button>
-                    <button
-                        onClick={() => setFilter('athlete')}
-                        className={`px-6 py-2 rounded-full font-medium transition ${
-                            filter === 'athlete'
-                                ? 'bg-[#1d4ed8] text-white'
-                                : 'border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#eff6ff]'
-                        }`}
-                    >
-                        {t.filterAthlete}
-                    </button>
+                    {uniqueTypes.map(type => (
+                        <button
+                            key={type}
+                            onClick={() => setFilter(type)}
+                            className={`px-6 py-2 rounded-full font-medium transition ${
+                                filter === type
+                                    ? 'bg-[#1d4ed8] text-white'
+                                    : 'border border-[#1d4ed8] text-[#1d4ed8] hover:bg-[#eff6ff]'
+                            }`}
+                        >
+                            {type === 'board' ? t.filterBoard : (type === 'athlete' ? t.filterAthlete : type)}
+                        </button>
+                    ))}
                 </div>
 
                 <div className="overflow-x-auto rounded-2xl border border-[#1d4ed8]/10 bg-white shadow-sm">
@@ -110,11 +105,11 @@ export default function DaftarPengurus({ members = [], locale = 'id' }) {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
-                                                member.member_type === 'board' 
+                                                member.member_type?.toLowerCase() === 'pengurus' || member.member_type === 'board' 
                                                 ? 'bg-blue-100 text-blue-700' 
                                                 : 'bg-emerald-100 text-emerald-700'
                                             }`}>
-                                                {member.member_type === 'board' ? t.filterBoard : t.filterAthlete}
+                                                {member.member_type === 'board' ? t.filterBoard : (member.member_type === 'athlete' ? t.filterAthlete : member.member_type)}
                                             </span>
                                         </td>
                                     </tr>

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import GalleryPickerModal from '@/Components/GalleryPickerModal';
 
-export default function MembersCreate() {
+export default function MembersCreate({ galleries }) {
+    const [showGalleryPicker, setShowGalleryPicker] = useState(false);
     const { data, setData, post, errors, processing } = useForm({
         name: '',
         member_type: 'athlete',
@@ -10,6 +12,7 @@ export default function MembersCreate() {
         specialty: '',
         description: '',
         photo_path: '',
+        photo: null,
     });
 
     const handleSubmit = (e) => {
@@ -51,33 +54,37 @@ export default function MembersCreate() {
                             <label className="block text-sm font-medium text-[#111827] mb-2">
                                 Tipe Anggota <span className="text-red-600">*</span>
                             </label>
-                            <select
+                            <input
+                                type="text"
                                 value={data.member_type}
                                 onChange={(e) => setData('member_type', e.target.value)}
-                                className="w-full rounded-lg border border-[#1d4ed8]/20 px-4 py-2"
-                            >
-                                <option value="athlete">Atlet</option>
-                                <option value="board">Pengurus</option>
-                            </select>
+                                className={`w-full rounded-lg border px-4 py-2 ${
+                                    errors.member_type ? 'border-red-500' : 'border-[#1d4ed8]/20'
+                                }`}
+                                placeholder="Misal: Pengurus, Dewan Penasihat, Atlet"
+                                list="member_types"
+                            />
+                            <datalist id="member_types">
+                                <option value="Pengurus" />
+                                <option value="Dewan Penasihat" />
+                                <option value="Perguruan Daerah" />
+                                <option value="Bidang Pembinaan Prestasi" />
+                                <option value="Bidang Organisasi dan Umum" />
+                                <option value="Atlet" />
+                            </datalist>
                             {errors.member_type && <p className="mt-1 text-sm text-red-600">{errors.member_type}</p>}
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-[#111827] mb-2">
-                                {data.member_type === 'board' ? 'Posisi' : 'Spesialisasi'}
+                                Posisi / Spesialisasi
                             </label>
                             <input
                                 type="text"
-                                value={data.member_type === 'board' ? data.position : data.specialty}
-                                onChange={(e) => {
-                                    if (data.member_type === 'board') {
-                                        setData('position', e.target.value);
-                                    } else {
-                                        setData('specialty', e.target.value);
-                                    }
-                                }}
+                                value={data.position}
+                                onChange={(e) => setData('position', e.target.value)}
                                 className="w-full rounded-lg border border-[#1d4ed8]/20 px-4 py-2"
-                                placeholder={data.member_type === 'board' ? 'Misal: Ketua' : 'Misal: Kelas Berat'}
+                                placeholder="Misal: Ketua Umum, Kelas Berat, dll"
                             />
                         </div>
 
@@ -96,18 +103,43 @@ export default function MembersCreate() {
 
                         <div>
                             <label className="block text-sm font-medium text-[#111827] mb-2">
-                                Path Foto
+                                Foto Anggota
                             </label>
-                            <input
-                                type="text"
-                                value={data.photo_path}
-                                onChange={(e) => setData('photo_path', e.target.value)}
-                                className="w-full rounded-lg border border-[#1d4ed8]/20 px-4 py-2"
-                                placeholder="Misal: members/photo.jpg"
+                            <div className="flex items-center gap-4">
+                                {data.photo_path && (
+                                    <img 
+                                        src={data.photo_path.startsWith('http') ? data.photo_path : `/storage/${data.photo_path}`} 
+                                        alt="Preview" 
+                                        className="h-16 w-16 object-cover rounded-lg border"
+                                    />
+                                )}
+                                <div className="flex-1">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => setData('photo', e.target.files[0])}
+                                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#1d4ed8]/10 file:text-[#1d4ed8] hover:file:bg-[#1d4ed8]/20 transition-colors cursor-pointer"
+                                    />
+                                    <p className="mt-1 text-xs text-gray-500">Upload file baru atau pilih dari galeri.</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => setShowGalleryPicker(true)}
+                                    className="tarung-button-secondary py-2 whitespace-nowrap"
+                                >
+                                    Pilih dari Galeri
+                                </button>
+                            </div>
+                            {errors.photo && <p className="mt-1 text-sm text-red-600">{errors.photo}</p>}
+                            <GalleryPickerModal 
+                                isOpen={showGalleryPicker} 
+                                onClose={() => setShowGalleryPicker(false)} 
+                                galleries={galleries}
+                                onSelect={(path) => {
+                                    setData('photo_path', path);
+                                    setShowGalleryPicker(false);
+                                }}
                             />
-                            <p className="mt-1 text-sm text-[#111827]/60">
-                                Upload foto melalui file manager terlebih dahulu
-                            </p>
                         </div>
 
                         <div className="flex gap-4">

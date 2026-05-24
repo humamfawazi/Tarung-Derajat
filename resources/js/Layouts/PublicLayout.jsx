@@ -1,4 +1,3 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -46,13 +45,25 @@ export default function PublicLayout({ children }) {
             <header className="sticky top-0 z-40 border-b border-white/40 bg-white/72 backdrop-blur-xl">
                 <div className="relative mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between rounded-full border border-white/80 bg-white/85 px-4 py-3 shadow-[0_14px_50px_rgba(59,130,246,0.08)]">
-                        <Link href={route('home')} className="flex items-center gap-3">
-                            <ApplicationLogo className="h-11 w-11 fill-current text-[#1d4ed8]" />
-                            <div className="leading-tight">
-                                <div className="text-xs font-bold uppercase tracking-[0.3em] text-[#111827]/55">
+                        <Link href={route('home')} className="flex items-center gap-4 transition-opacity hover:opacity-80">
+                            <div className="flex items-center gap-2.5">
+                                <img
+                                    src="/images/jateng.png"
+                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                                    alt="Logo Jawa Tengah"
+                                />
+                                <img
+                                    src="/images/tarungderajat.png"
+                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                                    alt="Logo Tarung Derajat"
+                                />
+                            </div>
+
+                            <div className="leading-tight pl-0 sm:pl-1 sm:border-l sm:border-[#111827]/10">
+                                <div className="text-[11px] font-bold uppercase tracking-[0.32em] text-[#1d4ed8]/85 mb-0.5">
                                     Tarung Web
                                 </div>
-                                <div className="text-sm font-semibold text-[#111827]">
+                                <div className="text-[15px] font-bold text-[#1e293b] tracking-tight">
                                     Portal Tarung Derajat
                                 </div>
                             </div>
@@ -93,8 +104,8 @@ export default function PublicLayout({ children }) {
                             <div className="relative group">
                                 <button
                                     className={`inline-flex items-center gap-1 rounded-full px-4 py-1.5 text-sm font-semibold transition-all duration-200 focus:outline-none ${isTentangKamiActive
-                                            ? 'bg-[#1d4ed8] text-white shadow-[0_2px_12px_rgba(29,78,216,0.35)]'
-                                            : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8] text-white shadow-[0_2px_12px_rgba(29,78,216,0.35)]'
+                                        : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Tentang Kami
@@ -107,8 +118,8 @@ export default function PublicLayout({ children }) {
                                         <Link
                                             href={route('public.tentang-kami.sejarah')}
                                             className={`block px-4 py-2 text-sm rounded-t-xl transition-colors duration-150 ${route().current('public.tentang-kami.sejarah')
-                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Sejarah
@@ -116,8 +127,8 @@ export default function PublicLayout({ children }) {
                                         <Link
                                             href={route('public.tentang-kami.filosofi')}
                                             className={`block px-4 py-2 text-sm transition-colors duration-150 ${route().current('public.tentang-kami.filosofi')
-                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Filosofi
@@ -125,8 +136,8 @@ export default function PublicLayout({ children }) {
                                         <Link
                                             href={route('public.tentang-kami.daftar-pengurus')}
                                             className={`block px-4 py-2 text-sm rounded-b-xl transition-colors duration-150 ${route().current('public.tentang-kami.daftar-pengurus')
-                                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/70 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Daftar Pengurus & Atlet
@@ -139,7 +150,7 @@ export default function PublicLayout({ children }) {
                         <div className="flex items-center gap-3">
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/15 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#111827]/68 transition hover:border-[#1d4ed8]/30 hover:text-[#1d4ed8]"
+                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/15 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#111827]/68 transition-all hover:border-[#1d4ed8]/40 hover:text-[#1d4ed8] hover:bg-[#eff6ff] shadow-sm"
                                 onClick={toggleStaffMenu}
                                 aria-expanded={staffMenuOpen}
                                 aria-controls="staff-access-menu"
@@ -150,7 +161,7 @@ export default function PublicLayout({ children }) {
 
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-sm font-semibold text-[#111827] lg:hidden"
+                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-sm font-semibold text-[#111827] lg:hidden shadow-sm hover:bg-slate-50 transition-colors"
                                 onClick={toggleMobileMenu}
                                 aria-expanded={mobileMenuOpen}
                                 aria-controls="public-mobile-menu"
@@ -189,8 +200,8 @@ export default function PublicLayout({ children }) {
                                 <Link
                                     href={route('home')}
                                     className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('home')
-                                            ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                            : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                        : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Beranda
@@ -198,8 +209,8 @@ export default function PublicLayout({ children }) {
                                 <Link
                                     href={route('public.informasi')}
                                     className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.informasi')
-                                            ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                            : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                        : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Informasi
@@ -207,8 +218,8 @@ export default function PublicLayout({ children }) {
                                 <Link
                                     href={route('public.kompetisi-event')}
                                     className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.kompetisi-event')
-                                            ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                            : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                        : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Kompetisi & Event
@@ -216,8 +227,8 @@ export default function PublicLayout({ children }) {
                                 <Link
                                     href={route('galleries.view')}
                                     className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('galleries.view')
-                                            ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                            : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                        : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Galeri
@@ -225,23 +236,23 @@ export default function PublicLayout({ children }) {
                                 <Link
                                     href={route('public.program')}
                                     className={`rounded-2xl px-4 py-3 text-sm transition-all duration-150 ${route().current('public.program')
-                                            ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                            : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                        : 'font-medium text-[#111827]/75 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                         }`}
                                 >
                                     Program
                                 </Link>
                                 <div className={`rounded-2xl px-4 py-3 text-sm ${isTentangKamiActive
-                                        ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
-                                        : 'font-medium text-[#111827]/75'
+                                    ? 'bg-[#1d4ed8]/10 text-[#1d4ed8] font-semibold border-l-4 border-[#1d4ed8]'
+                                    : 'font-medium text-[#111827]/75'
                                     }`}>
                                     <div className="mb-1">Tentang Kami</div>
                                     <div className="flex flex-col gap-1 pl-2">
                                         <Link
                                             href={route('public.tentang-kami.sejarah')}
                                             className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.sejarah')
-                                                    ? 'text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Sejarah
@@ -249,8 +260,8 @@ export default function PublicLayout({ children }) {
                                         <Link
                                             href={route('public.tentang-kami.filosofi')}
                                             className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.filosofi')
-                                                    ? 'text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Filosofi
@@ -258,8 +269,8 @@ export default function PublicLayout({ children }) {
                                         <Link
                                             href={route('public.tentang-kami.daftar-pengurus')}
                                             className={`rounded-xl px-3 py-2 text-sm transition-all duration-150 ${route().current('public.tentang-kami.daftar-pengurus')
-                                                    ? 'text-[#1d4ed8] font-semibold'
-                                                    : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
+                                                ? 'text-[#1d4ed8] font-semibold'
+                                                : 'text-[#111827]/65 hover:bg-[#eff6ff] hover:text-[#1d4ed8]'
                                                 }`}
                                         >
                                             Daftar Pengurus & Atlet

@@ -1,16 +1,22 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { useState } from 'react';
+import GalleryPickerModal from '@/Components/GalleryPickerModal';
 
-export default function AdminArticlesEdit({ article }) {
-    const { data, setData, patch, processing, errors } = useForm({
+export default function AdminArticlesEdit({ article, galleries }) {
+    const [showGalleryPicker, setShowGalleryPicker] = useState(false);
+    const { data, setData, post, processing, errors } = useForm({
+        _method: 'patch',
         title: article.title ?? '',
         content: article.content ?? '',
         is_featured: Boolean(article.is_featured),
+        image_path: article.image_path ?? '',
+        image: null,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        patch(route('admin.articles.update', article.id));
+        post(route('admin.articles.update', article.id));
     };
 
     return (
@@ -48,6 +54,45 @@ export default function AdminArticlesEdit({ article }) {
                             required
                         />
                         {errors.content && <p className="mt-2 text-sm text-red-600">{errors.content}</p>}
+                    </div>
+
+                    <div>
+                        <label className="text-sm font-semibold text-[#111827]">Foto Artikel (Opsional)</label>
+                        <div className="mt-2 flex items-center gap-4">
+                            {data.image_path && (
+                                <img 
+                                    src={data.image_path.startsWith('http') ? data.image_path : `/storage/${data.image_path}`} 
+                                    alt="Preview" 
+                                    className="h-20 w-32 object-cover rounded-lg border"
+                                />
+                            )}
+                            <div className="flex-1">
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setData('image', e.target.files[0])}
+                                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#1d4ed8]/10 file:text-[#1d4ed8] hover:file:bg-[#1d4ed8]/20 transition-colors cursor-pointer"
+                                />
+                                <p className="mt-1 text-xs text-gray-500">Upload file baru atau pilih dari galeri.</p>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setShowGalleryPicker(true)}
+                                className="tarung-button-secondary py-2 whitespace-nowrap"
+                            >
+                                Pilih dari Galeri
+                            </button>
+                        </div>
+                        {errors.image && <p className="mt-2 text-sm text-red-600">{errors.image}</p>}
+                        <GalleryPickerModal 
+                            isOpen={showGalleryPicker} 
+                            onClose={() => setShowGalleryPicker(false)} 
+                            galleries={galleries}
+                            onSelect={(path) => {
+                                setData('image_path', path);
+                                setShowGalleryPicker(false);
+                            }}
+                        />
                     </div>
 
                     <label className="inline-flex items-center gap-2 text-sm text-[#111827]">

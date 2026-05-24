@@ -466,6 +466,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Members Management
         Route::get('/members', [MemberController::class, 'index'])->name('members.index');
+        Route::get('/members/import/template', [MemberController::class, 'downloadTemplate'])->name('members.import.template');
+        Route::post('/members/import/preview', [MemberController::class, 'previewImport'])->name('members.import.preview');
+        Route::post('/members/import/process', [MemberController::class, 'processImport'])->name('members.import.process');
         Route::get('/members/create', [MemberController::class, 'create'])->name('members.create');
         Route::post('/members', [MemberController::class, 'store'])->name('members.store');
         Route::get('/members/{member}/edit', [MemberController::class, 'edit'])->name('members.edit');

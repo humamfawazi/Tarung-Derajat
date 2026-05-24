@@ -43,6 +43,7 @@ class ArticleController extends Controller
     {
         return Inertia::render('Admin/Articles/Edit', [
             'article' => $article,
+            'galleries' => \App\Models\Gallery::latest('id')->get(),
         ]);
     }
 
@@ -52,9 +53,19 @@ class ArticleController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
             'is_featured' => ['required', 'boolean'],
+            'image' => ['nullable', 'image', 'max:5120'],
         ]);
 
-        $article->update($validated);
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('articles', 'public');
+            $article->image_path = $path;
+        }
+
+        $article->update([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'is_featured' => $validated['is_featured'],
+        ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui.');
     }

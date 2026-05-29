@@ -5,7 +5,7 @@ export default function AdminUsersEdit({ user, roleOptions }) {
     const { data, setData, patch, processing, errors } = useForm({
         name: user.name ?? '',
         email: user.email ?? '',
-        role_name: user.role_name ?? 'user',
+        role_name: user.role_name ?? 'admin',
         is_verified: Boolean(user.is_verified),
     });
 
@@ -19,11 +19,11 @@ export default function AdminUsersEdit({ user, roleOptions }) {
             header={
                 <div>
                     <div className="tarung-section-label">Admin Management</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Update User</h2>
+                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Update Admin</h2>
                 </div>
             }
         >
-            <Head title="Update User" />
+            <Head title="Update Admin" />
 
             <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8">
@@ -73,7 +73,7 @@ export default function AdminUsersEdit({ user, roleOptions }) {
                             checked={data.is_verified}
                             onChange={(e) => setData('is_verified', e.target.checked)}
                         />
-                        User terverifikasi
+                        Admin terverifikasi
                     </label>
 
                     <div className="flex flex-wrap gap-2">

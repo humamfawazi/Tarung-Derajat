@@ -1,16 +1,18 @@
 import UserNavbar from '@/Components/Navbars/UserNavbar';
 import PelatihNavbar from '@/Components/Navbars/PelatihNavbar';
-import AdminNavbar from '@/Components/Navbars/AdminNavbar';
+import AdminLayout from '@/Layouts/AdminLayout';
 import { usePage } from '@inertiajs/react';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
     const roleName = user?.role?.name ?? null;
 
+    if (roleName === 'admin') {
+        return <AdminLayout header={header}>{children}</AdminLayout>;
+    }
+
     const renderNavbar = () => {
         switch (roleName) {
-            case 'admin':
-                return <AdminNavbar />;
             case 'pelatih':
             case 'coach':
                 return <PelatihNavbar />;

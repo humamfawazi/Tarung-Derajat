@@ -6,7 +6,7 @@ export default function AdminUsersIndex({ users }) {
     const { delete: destroy, processing } = useForm({});
 
     const handleDelete = (userId) => {
-        if (!confirm('Hapus user ini?')) {
+        if (!confirm('Hapus admin ini?')) {
             return;
         }
 
@@ -19,15 +19,15 @@ export default function AdminUsersIndex({ users }) {
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="tarung-section-label">Admin Management</div>
-                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Manajemen User</h2>
+                        <h2 className="mt-2 text-2xl font-bold text-[#111827]">Manajemen Admin</h2>
                     </div>
                     <Link href={route('admin.users.create')} className="tarung-button-primary w-fit">
-                        Tambah User
+                        Tambah Admin
                     </Link>
                 </div>
             }
         >
-            <Head title="Manajemen User" />
+            <Head title="Manajemen Admin" />
 
             <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                 {flash?.success && (
@@ -56,7 +56,7 @@ export default function AdminUsersIndex({ users }) {
                             {users.length === 0 ? (
                                 <tr>
                                     <td colSpan={5} className="px-3 py-6 text-center text-[#111827]/60">
-                                        Belum ada user.
+                                        Belum ada admin.
                                     </td>
                                 </tr>
                             ) : (

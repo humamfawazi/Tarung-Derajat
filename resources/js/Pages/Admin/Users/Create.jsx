@@ -6,7 +6,7 @@ export default function AdminUsersCreate({ roleOptions }) {
         name: '',
         email: '',
         password: '',
-        role_name: 'user',
+        role_name: 'admin',
         is_verified: true,
     });
 
@@ -20,11 +20,11 @@ export default function AdminUsersCreate({ roleOptions }) {
             header={
                 <div>
                     <div className="tarung-section-label">Admin Management</div>
-                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Tambah User</h2>
+                    <h2 className="mt-2 text-2xl font-bold text-[#111827]">Tambah Admin</h2>
                 </div>
             }
         >
-            <Head title="Tambah User" />
+            <Head title="Tambah Admin" />
 
             <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
                 <form onSubmit={submit} className="tarung-shell space-y-6 rounded-[28px] p-6 sm:p-8">
@@ -91,7 +91,7 @@ export default function AdminUsersCreate({ roleOptions }) {
 
                     <div className="flex flex-wrap gap-2">
                         <button type="submit" disabled={processing} className="tarung-button-primary disabled:opacity-60">
-                            {processing ? 'Saving...' : 'Simpan User'}
+                            {processing ? 'Saving...' : 'Simpan Admin'}
                         </button>
                         <Link href={route('admin.users.index')} className="tarung-button-secondary">
                             Batal

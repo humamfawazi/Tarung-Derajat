@@ -16,7 +16,7 @@ class AdminUserController extends Controller
     public function create(): Response
     {
         return Inertia::render('Admin/Users/Create', [
-            'roleOptions' => ['admin', 'pelatih', 'coach', 'user'],
+            'roleOptions' => ['admin'],
         ]);
     }
 
@@ -49,10 +49,10 @@ class AdminUserController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role_name' => $user->getRoleName() ?? 'user',
+                'role_name' => $user->getRoleName() ?? 'admin',
                 'is_verified' => $user->email_verified_at !== null,
             ],
-            'roleOptions' => ['admin', 'pelatih', 'coach', 'user'],
+            'roleOptions' => ['admin'],
         ]);
     }
 
@@ -61,7 +61,7 @@ class AdminUserController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'role_name' => ['required', 'string', Rule::in(['admin', 'pelatih', 'coach', 'user'])],
+            'role_name' => ['required', 'string', Rule::in(['admin'])],
             'is_verified' => ['required', 'boolean'],
         ]);
 
@@ -91,7 +91,7 @@ class AdminUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'string', 'min:8'],
-            'role_name' => ['required', 'string', Rule::in(['admin', 'pelatih', 'coach', 'user'])],
+            'role_name' => ['required', 'string', Rule::in(['admin'])],
             'is_verified' => ['required', 'boolean'],
         ]);
 

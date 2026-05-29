@@ -44,27 +44,27 @@ export default function PublicLayout({ children }) {
         <div className="min-h-screen bg-[#f5f7ff] text-[#111827]">
             <header className="sticky top-0 z-40 border-b border-white/40 bg-white/72 backdrop-blur-xl">
                 <div className="relative mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between rounded-full border border-white/80 bg-white/85 px-4 py-3 shadow-[0_14px_50px_rgba(59,130,246,0.08)]">
-                        <Link href={route('home')} className="flex items-center gap-4 transition-opacity hover:opacity-80">
-                            <div className="flex items-center gap-2.5">
+                    <div className="flex items-center justify-between rounded-full border border-white/80 bg-white/85 px-3 sm:px-4 py-2.5 sm:py-3 shadow-[0_14px_50px_rgba(59,130,246,0.08)]">
+                        <Link href={route('home')} className="flex items-center gap-2 sm:gap-4 transition-opacity hover:opacity-80 shrink-0">
+                            <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
                                 <img
                                     src="/images/jateng.png"
-                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
+                                    className="block h-8 sm:h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.06)]"
                                     alt="Logo Jawa Tengah"
                                 />
                                 <img
                                     src="/images/tarungderajat.png"
-                                    className="block h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
+                                    className="block h-8 sm:h-10 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.08)]"
                                     alt="Logo Tarung Derajat"
                                 />
                             </div>
 
-                            <div className="leading-tight pl-0 sm:pl-1 sm:border-l sm:border-[#111827]/10">
-                                <div className="text-[11px] font-bold uppercase tracking-[0.32em] text-[#1d4ed8]/85 mb-0.5">
+                            <div className="leading-tight pl-1.5 sm:pl-1 sm:border-l sm:border-[#111827]/10">
+                                <div className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.15em] sm:tracking-[0.32em] text-[#1d4ed8]/85 mb-0.5 whitespace-nowrap">
                                     Tarung Web
                                 </div>
-                                <div className="text-[15px] font-bold text-[#1e293b] tracking-tight">
-                                    Portal Tarung Derajat
+                                <div className="text-[12px] sm:text-[15px] font-bold text-[#1e293b] tracking-tight whitespace-nowrap">
+                                    Portal Tarung<span className="hidden sm:inline"> Derajat</span>
                                 </div>
                             </div>
                         </Link>
@@ -147,10 +147,10 @@ export default function PublicLayout({ children }) {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/15 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#111827]/68 transition-all hover:border-[#1d4ed8]/40 hover:text-[#1d4ed8] hover:bg-[#eff6ff] shadow-sm"
+                                className="hidden lg:inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/15 bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#111827]/68 transition-all hover:border-[#1d4ed8]/40 hover:text-[#1d4ed8] hover:bg-[#eff6ff] shadow-sm"
                                 onClick={toggleStaffMenu}
                                 aria-expanded={staffMenuOpen}
                                 aria-controls="staff-access-menu"
@@ -161,7 +161,7 @@ export default function PublicLayout({ children }) {
 
                             <button
                                 type="button"
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#111827]/10 bg-white px-4 py-2 text-sm font-semibold text-[#111827] lg:hidden shadow-sm hover:bg-slate-50 transition-colors"
+                                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full border border-[#111827]/10 bg-white px-3 sm:px-4 py-1.5 sm:py-2 text-sm font-semibold text-[#111827] lg:hidden shadow-sm hover:bg-slate-50 transition-colors"
                                 onClick={toggleMobileMenu}
                                 aria-expanded={mobileMenuOpen}
                                 aria-controls="public-mobile-menu"
@@ -276,6 +276,23 @@ export default function PublicLayout({ children }) {
                                             Daftar Pengurus & Atlet
                                         </Link>
                                     </div>
+                                </div>
+                                
+                                <div className="mt-2 pt-4 border-t border-[#111827]/10">
+                                    <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#111827]/50 mb-3 px-4">
+                                        Area Internal
+                                    </div>
+                                    {auth?.user ? (
+                                        <Link href={route('dashboard')} className="flex items-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium text-[#1d4ed8] bg-[#eff6ff] hover:bg-[#1d4ed8] hover:text-white transition-all duration-150">
+                                            <span className="text-sm leading-none">◍</span>
+                                            Masuk Dashboard Staff
+                                        </Link>
+                                    ) : (
+                                        <Link href={route('login')} className="flex items-center gap-2 rounded-2xl px-4 py-3 text-sm font-medium text-[#1d4ed8] bg-[#eff6ff] hover:bg-[#1d4ed8] hover:text-white transition-all duration-150">
+                                            <span className="text-sm leading-none">◍</span>
+                                            Login Admin/Trainer
+                                        </Link>
+                                    )}
                                 </div>
                             </div>
                         </div>
